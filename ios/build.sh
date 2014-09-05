@@ -29,7 +29,7 @@ popd > /dev/null
 CONFIG=Release
 TARGET=chartboostLibrary
 BINARY=lib$TARGET.a
-OUTPUT_DIR=$path/../../build/$TARGET/ios
+OUTPUT_DIR=$path/build-universal/$TARGET/ios
 
 # Clean
 xcodebuild -project "$path/Plugin.xcodeproj" -target $TARGET -configuration $CONFIG clean
@@ -46,7 +46,7 @@ xcodebuild -project "$path/Plugin.xcodeproj" -target $TARGET -configuration $CON
 checkError
 
 # Xcode Simulator
-xcodebuild -project "$path/Plugin.xcodeproj" -target $TARGET -configuration $CONFIG -sdk iphonesimulator6.1 -arch i386
+xcodebuild -project "$path/Plugin.xcodeproj" -target $TARGET -configuration $CONFIG -sdk iphonesimulator7.1 -arch i386
 checkError
 
 # create universal binary

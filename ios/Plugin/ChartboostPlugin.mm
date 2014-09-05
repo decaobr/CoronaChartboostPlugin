@@ -45,9 +45,6 @@ THE SOFTWARE.
 
 // Chartboost
 #import <Chartboost/Chartboost.h>
-#import <Chartboost/CBNewsfeed.h>
-#import <CommonCrypto/CommonDigest.h>
-#import <AdSupport/AdSupport.h>
 
 // The ChartboostDelegate delegate
 @interface ChartboostDelegate: UIViewController <ChartboostDelegate>
