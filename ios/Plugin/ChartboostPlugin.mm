@@ -321,7 +321,9 @@ chartboostLibrary::startSession( lua_State *L )
 	
 	// Begin a user session. Must not be dependent on user actions or any prior network requests.
 	// Must be called every time your app becomes active.
-	[Chartboost startWithAppId:[NSString stringWithUTF8String:appId] appSignature:[NSString stringWithUTF8String:appSignature] delegate:chartBoostDelegate];
+	[Chartboost startWithAppId:[NSString stringWithUTF8String:appId]
+                appSignature  :[NSString stringWithUTF8String:appSignature]
+                delegate      :chartBoostDelegate];
 	
 	return 0;
 }
