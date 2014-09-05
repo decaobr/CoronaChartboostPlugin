@@ -43,8 +43,11 @@ THE SOFTWARE.
 #include "CoronaLua.h"
 #include "CoronaLibrary.h"
 
-// Import Chartboost.h
-#import "Chartboost.h"
+// Chartboost
+#import <Chartboost/Chartboost.h>
+#import <Chartboost/CBNewsfeed.h>
+#import <CommonCrypto/CommonDigest.h>
+#import <AdSupport/AdSupport.h>
 
 // The ChartboostDelegate delegate
 @interface ChartboostDelegate: UIViewController <ChartboostDelegate>
@@ -118,7 +121,7 @@ class chartboostLibrary
 // This corresponds to the name of the library, e.g. [Lua] require "plugin.library"
 const char chartboostLibrary::kName[] = "plugin.chartboost";
 // Plugin version
-const char *pluginVersion = "1.4.1-no-lic";
+const char *pluginVersion = "2.0";
 // Pointer to the Chartboost Delegate
 ChartboostDelegate *chartBoostDelegate;
 
@@ -169,7 +172,7 @@ chartboostLibrary::Finalizer( lua_State *L )
 	delete library;
 	
 	// Release the chartboost object
-	[[Chartboost sharedChartboost] release];
+	[Chartboost release];
 	
 	// Free the Lua listener
 	Corona::Lua::DeleteRef( chartBoostDelegate.L, chartBoostDelegate.listenerRef );
@@ -301,25 +304,11 @@ chartboostLibrary::init( lua_State *L )
 	{
 		// Begin a user session. Must not be dependent on user actions or any prior network requests.
 		// Must be called every time your app becomes active.
-		[Chartboost startWithAppId:[NSString stringWithUTF8String:appId] appSignature:[NSString stringWithUTF8String:appSignature] delegate:chartBoostDelegate];
+		[Chartboost startWithAppId:[NSString stringWithUTF8String:appId]
+                    appSignature  :[NSString stringWithUTF8String:appSignature]
+                    delegate      :chartBoostDelegate];
 	}
-	
-	// Create dummy license event to maintain backwards compat
-	if ( listenerRef != NULL )
-	{
-		// Create the event
-		Corona::Lua::NewEvent( L, "license" );
-		lua_pushstring( L, "check" );
-		lua_setfield( L, -2, CoronaEventTypeKey() );
-
-		// Push the status string
-		lua_pushstring( L, "valid" );
-		lua_setfield( L, -2, "status" );
 		
-		// Dispatch the event
-		Corona::Lua::DispatchEvent( L, listenerRef, 1 );
-	}
-	
 	return 0;
 }
 
@@ -425,32 +414,28 @@ chartboostLibrary::cache( lua_State *L )
 		namedLocation = lua_tostring( L, 1 );
 	}
 	
-	// If Chartboost is initialised
-	if ( [Chartboost sharedChartboost] )
-	{
-		// If namedLocation isn't null, then cache the location for the interstial.
-		if ( namedLocation != NULL )
-		{
-			// If the user requests to cache the more apps page
-			if ( strcmp( namedLocation, "moreApps" ) == 0 )
-			{
-				[[Chartboost sharedChartboost] cacheMoreApps:@"DefaultMoreApps"];
-			}
-			// User wants to cache a custom location
-			else
-			{
-				[[Chartboost sharedChartboost] cacheInterstitial:[NSString stringWithUTF8String:namedLocation]];
-			}
-		}
-		// If namedLocation is null, then cache the default interstitial
-		else
-		{
-			[[Chartboost sharedChartboost] cacheInterstitial:@"DefaultInterstitial"];
-		}
-		
-		// We have requested a cache action
-		chartBoostDelegate.cbHasRequestedCache = true;
-	}
+    // If namedLocation isn't null, then cache the location for the interstial.
+    if ( namedLocation != NULL )
+    {
+        // If the user requests to cache the more apps page
+        if ( strcmp( namedLocation, "moreApps" ) == 0 )
+        {
+            [Chartboost cacheMoreApps:@"DefaultMoreApps"];
+        }
+        // User wants to cache a custom location
+        else
+        {
+            [Chartboost cacheInterstitial:[NSString stringWithUTF8String:namedLocation]];
+        }
+    }
+    // If namedLocation is null, then cache the default interstitial
+    else
+    {
+        [Chartboost cacheInterstitial:@"DefaultInterstitial"];
+    }
+    
+    // We have requested a cache action
+    chartBoostDelegate.cbHasRequestedCache = true;
 	
 	return 0;
 }
@@ -477,53 +462,49 @@ chartboostLibrary::show( lua_State *L )
 		namedLocation = lua_tostring( L, 2 );
 	}
 
-	// If Chartboost is initialised
-	if ( [Chartboost sharedChartboost] )
-	{
-		// If the ad type isn't null
-		if ( adType != NULL )
-		{
-			// If we want to display an interstitial
-			if ( strcmp( adType, "interstitial" ) == 0 )
-			{
-				// If we have already requested an ad, and are waiting for it to show/fail, lets not execute this block of code
-				if ( chartBoostDelegate.cbHasRequestedAd == false )
-				{
-					// If the user wants to show a cached nameded location
-					if ( namedLocation != NULL )
-					{
-						if ( [[Chartboost sharedChartboost] hasCachedInterstitial:[NSString stringWithUTF8String:namedLocation]] )
-						{
-							[[Chartboost sharedChartboost] showInterstitial:[NSString stringWithUTF8String:namedLocation]];
-						}
-						else
-						{
-							[[Chartboost sharedChartboost] showInterstitial:@"DefaultInterstitial"];
-						}
-					}
-					// User just wants to show a default interstitial
-					else
-					{
-						[[Chartboost sharedChartboost] showInterstitial:@"DefaultInterstitial"];
-					}
-					chartBoostDelegate.cbHasRequestedAd = true;
-				}
-			}
-			// If we want to display the more apps page
-			else if ( strcmp( adType, "moreApps" ) == 0 )
-			{
-				// If we have already requested a more apps page, and are waiting for it to show/fail, lets not execute this block of code
-				if ( chartBoostDelegate.cbHasRequestedMoreApps == false )
-				{
-					[[Chartboost sharedChartboost] showMoreApps:@"DefaultMoreApps"];
-				}
-			}
-		}
-		else
-		{
-			// Show error
-		}
-	}
+    // If the ad type isn't null
+    if ( adType != NULL )
+    {
+        // If we want to display an interstitial
+        if ( strcmp( adType, "interstitial" ) == 0 )
+        {
+            // If we have already requested an ad, and are waiting for it to show/fail, lets not execute this block of code
+            if ( chartBoostDelegate.cbHasRequestedAd == false )
+            {
+                // If the user wants to show a cached nameded location
+                if ( namedLocation != NULL )
+                {
+                    if ( [Chartboost hasInterstitial:[NSString stringWithUTF8String:namedLocation]] )
+                    {
+                        [Chartboost showInterstitial:[NSString stringWithUTF8String:namedLocation]];
+                    }
+                    else
+                    {
+                        [Chartboost showInterstitial:@"DefaultInterstitial"];
+                    }
+                }
+                // User just wants to show a default interstitial
+                else
+                {
+                    [Chartboost showInterstitial:@"DefaultInterstitial"];
+                }
+                chartBoostDelegate.cbHasRequestedAd = true;
+            }
+        }
+        // If we want to display the more apps page
+        else if ( strcmp( adType, "moreApps" ) == 0 )
+        {
+            // If we have already requested a more apps page, and are waiting for it to show/fail, lets not execute this block of code
+            if ( chartBoostDelegate.cbHasRequestedMoreApps == false )
+            {
+                [Chartboost showMoreApps:@"DefaultMoreApps"];
+            }
+        }
+    }
+    else
+    {
+        // Show error
+    }
 	
 	return 0;
 }
@@ -535,33 +516,24 @@ chartboostLibrary::hasCachedInterstitial( lua_State *L )
 	// Get the named location
 	const char *namedLocation = lua_tostring( L, 1 );
 	
-	// If Chartboost is initialised
-	if ( [Chartboost sharedChartboost] )
-	{
-		if ( namedLocation != NULL )
-		{
-			lua_pushboolean( L, [[Chartboost sharedChartboost] hasCachedInterstitial:[NSString stringWithUTF8String:namedLocation]] );
-		}
-		else
-		{
-			lua_pushboolean( L, [[Chartboost sharedChartboost] hasCachedInterstitial:@"DefaultInterstitial"] );
-		}
-		return 1;
-	}
-	return 0;
+    if ( namedLocation != NULL )
+    {
+        lua_pushboolean( L, [Chartboost hasInterstitial:[NSString stringWithUTF8String:namedLocation]] );
+    }
+    else
+    {
+        lua_pushboolean( L, [Chartboost hasInterstitial:@"DefaultInterstitial"] );
+    }
+
+    return 1;
 }
 
 // [Lua] chartboost.hasCachedMoreApps()
 int
 chartboostLibrary::hasCachedMoreApps( lua_State *L )
 {
-	// If Chartboost is initialised
-	if ( [Chartboost sharedChartboost] )
-	{
-		lua_pushboolean( L, [[Chartboost sharedChartboost] hasCachedMoreApps:@"DefaultMoreApps"] );
-		return 1;
-	}
-	return 0;
+    lua_pushboolean( L, [Chartboost hasMoreApps:@"DefaultMoreApps"] );
+    return 1;
 }
 	
 // ----------------------------------------------------------------------------
@@ -799,7 +771,7 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
 }
 
 /// Called when an more apps page has been displayed.
-- (BOOL)didDisplayMoreApps
+- (void)didDisplayMoreApps
 {
 	// Create the event
 	Corona::Lua::NewEvent( self.L, "chartboost" );
@@ -812,8 +784,6 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	
 	// Dispatch the event
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
-	
-	return true;
 }
 
 // Called before requesting the more apps view from the back-end
