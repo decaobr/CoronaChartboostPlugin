@@ -413,13 +413,13 @@ chartboostLibrary::cache( lua_State *L )
 		namedLocation = lua_tostring( L, 1 );
 	}
 	
-    // If namedLocation isn't null, then cache the location for the interstial.
+    // If namedLocation isn't null, then cache the location for the interstitial.
     if ( namedLocation != NULL )
     {
         // If the user requests to cache the more apps page
         if ( strcmp( namedLocation, "moreApps" ) == 0 )
         {
-            [Chartboost cacheMoreApps:@"DefaultMoreApps"];
+            [Chartboost cacheMoreApps:CBLocationHomeScreen];
         }
         // User wants to cache a custom location
         else
@@ -430,7 +430,7 @@ chartboostLibrary::cache( lua_State *L )
     // If namedLocation is null, then cache the default interstitial
     else
     {
-        [Chartboost cacheInterstitial:@"DefaultInterstitial"];
+        [Chartboost cacheInterstitial:CBLocationGameOver];
     }
     
     // We have requested a cache action
@@ -479,13 +479,13 @@ chartboostLibrary::show( lua_State *L )
                     }
                     else
                     {
-                        [Chartboost showInterstitial:@"DefaultInterstitial"];
+                        [Chartboost showInterstitial:CBLocationGameOver];
                     }
                 }
                 // User just wants to show a default interstitial
                 else
                 {
-                    [Chartboost showInterstitial:@"DefaultInterstitial"];
+                    [Chartboost showInterstitial:CBLocationGameOver];
                 }
                 chartBoostDelegate.cbHasRequestedAd = true;
             }
@@ -496,7 +496,7 @@ chartboostLibrary::show( lua_State *L )
             // If we have already requested a more apps page, and are waiting for it to show/fail, lets not execute this block of code
             if ( chartBoostDelegate.cbHasRequestedMoreApps == false )
             {
-                [Chartboost showMoreApps:@"DefaultMoreApps"];
+                [Chartboost showMoreApps:CBLocationHomeScreen];
             }
         }
     }
@@ -521,7 +521,7 @@ chartboostLibrary::hasCachedInterstitial( lua_State *L )
     }
     else
     {
-        lua_pushboolean( L, [Chartboost hasInterstitial:@"DefaultInterstitial"] );
+        lua_pushboolean( L, [Chartboost hasInterstitial:CBLocationGameOver] );
     }
 
     return 1;
@@ -531,7 +531,7 @@ chartboostLibrary::hasCachedInterstitial( lua_State *L )
 int
 chartboostLibrary::hasCachedMoreApps( lua_State *L )
 {
-    lua_pushboolean( L, [Chartboost hasMoreApps:@"DefaultMoreApps"] );
+    lua_pushboolean( L, [Chartboost hasMoreApps:CBLocationHomeScreen] );
     return 1;
 }
 	
