@@ -167,10 +167,7 @@ chartboostLibrary::Finalizer( lua_State *L )
 {
 	Self *library = (Self *)CoronaLuaToUserdata( L, 1 );
 	delete library;
-	
-	// Release the chartboost object
-	[Chartboost release];
-	
+		
 	// Free the Lua listener
 	Corona::Lua::DeleteRef( chartBoostDelegate.L, chartBoostDelegate.listenerRef );
 	chartBoostDelegate.listenerRef = NULL;
@@ -304,6 +301,10 @@ chartboostLibrary::init( lua_State *L )
 		[Chartboost startWithAppId:[NSString stringWithUTF8String:appId]
                     appSignature  :[NSString stringWithUTF8String:appSignature]
                     delegate      :chartBoostDelegate];
+        
+        [Chartboost setShouldPrefetchVideoContent:YES];
+        [Chartboost setShouldRequestInterstitialsInFirstSession:YES];
+        [Chartboost setShouldDisplayLoadingViewForMoreApps:chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps];
 	}
 		
 	return 0;
@@ -394,8 +395,10 @@ chartboostLibrary::config( lua_State *L )
 	
 	// Set the values
 	chartBoostDelegate.cbShouldDisplayMoreApps = shouldDisplayMoreApps;
-	chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps = shouldDisplayLoadingViewForMoreApps;
 	chartBoostDelegate.cbShouldDisplayInterstitial = shouldDisplayInterstitial;
+
+	chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps = shouldDisplayLoadingViewForMoreApps;
+    [Chartboost setShouldDisplayLoadingViewForMoreApps:chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps];
 	
 	return 0;
 }
@@ -547,7 +550,7 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
 // Interstitial delegate methods
 
 // Called before requesting an interstitial from the backend
-- (BOOL)shouldRequestInterstitial:(NSString *)location
+- (BOOL)shouldRequestInterstitial:(CBLocation)location
 {
 	return YES;
 }
@@ -567,7 +570,7 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
  * Is fired on:
  * -Interstitial is loaded & ready to display
  */
-- (BOOL)shouldDisplayInterstitial:(NSString *)location
+- (BOOL)shouldDisplayInterstitial:(CBLocation)location
 {
 	// Create the event
 	Corona::Lua::NewEvent( self.L, "chartboost" );
@@ -617,14 +620,14 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
  *
  * #Pro Tip: Use the delegate method below to immediately re-cache interstitials
  */
-- (void)didDismissInterstitial:(NSString *)location
+- (void)didDismissInterstitial:(CBLocation)location
 {
 	// We are no longer requesting an ad
 	self.cbHasRequestedAd = false;
 }
 
 // Same as above, but only called when dismissed for a close
-- (void)didCloseInterstitial:(NSString *)location
+- (void)didCloseInterstitial:(CBLocation)location
 {
 	// Create the event
 	Corona::Lua::NewEvent( self.L, "chartboost" );
@@ -643,7 +646,7 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
 }
 
 // Same as above, but only called when dismissed for a click
-- (void)didClickInterstitial:(NSString *)location
+-(void)didClickInterstitial:(CBLocation)location
 {
 	// Create the event
 	Corona::Lua::NewEvent( self.L, "chartboost" );
@@ -674,7 +677,7 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
  * - Similar to this is: cb.hasCachedInterstitial(String location)
  * Which will return true if a cached interstitial exists for that location
  */
-- (void)didCacheInterstitial:(NSString *)location
+- (void)didCacheInterstitial:(CBLocation)location
 {
 	if ( self.cbHasRequestedCache == true )
 	{
@@ -707,7 +710,7 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
  * - No network connection
  * - No publishing campaign matches for that user (go make a new one in the dashboard)
  */
-- (void)didFailToLoadInterstitial:(NSString *)location
+-(void)didFailToLoadInterstitial:(CBLocation)location withError:(CBLoadError)error
 {
 	if ( self.cbHasRequestedAd == true )
 	{
@@ -732,24 +735,11 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	self.cbHasRequestedAd = false;
 }
 
-/*
- * shouldRequestInterstitialsInFirstSession
- *
- * This sets logic to prevent interstitials from being displayed until the second startSession call
- * 
- * The default is NO, meaning that it will always request & display interstitials. 
- * If your app displays interstitials before the first time the user plays the game, implement this method to return NO.  
- */
-- (BOOL)shouldRequestInterstitialsInFirstSession
-{
-    return YES;
-}
-
 // More apps delegate methods
 
 // Called when an more apps page has been received, before it is presented on screen
 // Return NO if showing the more apps page is currently inappropriate
-- (BOOL)shouldDisplayMoreApps
+- (BOOL)shouldDisplayMoreApps:(CBLocation)location
 {
 	// We have requested a more apps page
 	self.cbHasRequestedMoreApps = true;
@@ -770,7 +760,7 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
 }
 
 /// Called when an more apps page has been displayed.
-- (void)didDisplayMoreApps
+-(void)didDisplayMoreApps:(CBLocation)location
 {
 	// Create the event
 	Corona::Lua::NewEvent( self.L, "chartboost" );
@@ -785,13 +775,6 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
 }
 
-// Called before requesting the more apps view from the back-end
-// Return NO if when showing the loading view is not the desired user experience
-- (BOOL)shouldDisplayLoadingViewForMoreApps
-{
-	return self.cbShouldDisplayLoadingViewForMoreApps;
-}
-
 /*
  * didDismissMoreApps
  *
@@ -803,14 +786,14 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
  *
  * #Pro Tip: Use the delegate method below to immediately re-cache the more apps page
  */
-- (void)didDismissMoreApps
+- (void)didDismissMoreApps:(CBLocation)location
 {
 	// We are not longer requesting a more apps page
 	self.cbHasRequestedMoreApps = false;
 }
 
 // Same as above, but only called when dismissed for a close
-- (void)didCloseMoreApps
+- (void)didCloseMoreApps:(CBLocation)location
 {
 	// Create the event
 	Corona::Lua::NewEvent( self.L, "chartboost" );
@@ -829,7 +812,7 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
 }
 
 // Same as above, but only called when dismissed for a click
-- (void)didClickMoreApps
+- (void)didClickMoreApps:(CBLocation)location
 {
 	// Create the event
 	Corona::Lua::NewEvent( self.L, "chartboost" );
@@ -858,7 +841,7 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
  * - No publishing campaign matches for that user (add more campaigns to your more apps page)
  *  -Find this inside the App > Edit page in the Chartboost dashboard
  */
-- (void)didFailToLoadMoreApps
+- (void)didFailToLoadMoreApps:(CBLocation)location withError:(CBLoadError)error
 {
 	// Create the event
 	Corona::Lua::NewEvent( self.L, "chartboost" );
@@ -881,7 +864,7 @@ chartboostLibrary::hasCachedMoreApps( lua_State *L )
 }
 
 // Called when the More Apps page has been received and cached
-- (void)didCacheMoreApps
+- (void)didCacheMoreApps:(CBLocation)location
 {
 	if ( self.cbHasRequestedCache == true )
 	{
