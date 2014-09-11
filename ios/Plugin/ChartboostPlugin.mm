@@ -222,10 +222,10 @@ chartboostLibrary::init( lua_State *L )
 	const char *appId = NULL;
 	// The app signature
 	const char *appSignature = NULL;
-	
+
 	// The listener reference
 	Corona::Lua::Ref listenerRef = NULL;
-	
+
 	// If an options table has been passed
 	if ( lua_type( L, -1 ) == LUA_TTABLE )
 	{
@@ -260,9 +260,6 @@ chartboostLibrary::init( lua_State *L )
 		{
 			luaL_error( L, "Error: App signature expected, got: %s", luaL_typename( L, -1 ) );
 		}
-		lua_pop( L, 1 );
-		
-		// Pop the options table
 		lua_pop( L, 1 );
 	}
 	// No options table passed in
@@ -306,7 +303,7 @@ chartboostLibrary::init( lua_State *L )
         [Chartboost setShouldRequestInterstitialsInFirstSession:YES];
         [Chartboost setShouldDisplayLoadingViewForMoreApps:chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps];
 	}
-		
+
 	return 0;
 }
 
@@ -337,13 +334,13 @@ chartboostLibrary::config( lua_State *L )
 	bool shouldDisplayLoadingViewForMoreApps = true;
 	// Should we display interstitials?
 	bool shouldDisplayInterstitial = true;
-	
+
 	// If an options table has been passed
 	if ( lua_type( L, -1 ) == LUA_TTABLE )
 	{
 		// Get the more apps table
 		lua_getfield( L, -1, "moreApps" );
-		
+        
 		// If more apps is a table
 		if ( lua_type( L, -1 ) == LUA_TTABLE )
 		{
@@ -364,14 +361,13 @@ chartboostLibrary::config( lua_State *L )
 				shouldDisplayLoadingViewForMoreApps = lua_toboolean( L, -1 );
 			}
 			lua_pop( L, 1 );
-		
-			// pop the more apps table
-			lua_pop( L, 1 );
 		}
+        
+        lua_pop( L, 1 );
 		
 		// Get the interstitial interstitial table
 		lua_getfield( L, -1, "interstitial" );
-		
+
 		// If interstitial is a table
 		if ( lua_type( L, -1 ) == LUA_TTABLE )
 		{
@@ -384,12 +380,8 @@ chartboostLibrary::config( lua_State *L )
 				shouldDisplayInterstitial = lua_toboolean( L, -1 );
 			}
 			lua_pop( L, 1 );
-			
-			// Pop the interstitials table
-			lua_pop( L, 1 );
 		}
 		
-		// Pop the options table
 		lua_pop( L, 1 );
 	}
 	
@@ -399,7 +391,7 @@ chartboostLibrary::config( lua_State *L )
 
 	chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps = shouldDisplayLoadingViewForMoreApps;
     [Chartboost setShouldDisplayLoadingViewForMoreApps:chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps];
-	
+
 	return 0;
 }
 
