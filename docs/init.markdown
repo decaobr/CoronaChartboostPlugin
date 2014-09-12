@@ -28,30 +28,90 @@ Event diagram:
 event.name: "chartboost"
     event.type: "interstitial"
         event.phase: "willDisplay"
+            -- sent before an ad is displayed
             event.location: namedLocation    
+            
         event.phase: "didDisplay"
+            -- sent when an ad is displayed
             event.location: namedLocation    
+            
         event.phase: "closed"
+            -- sent when an ad is closed
             event.location: namedLocation    
+            
         event.phase: "clicked"
+            -- sent when an ad is clicked
             event.location: namedLocation                
+            
         event.phase: "cached"
+            -- sent when an ad is cached
             event.location: namedLocation    
+            
+        event.phase: "load"                    
+            -- sent when an ad has failed to load
+            event.location: namedLocation    
+            event.result: "failed"
+
+    event.type: "rewardedVideo"
+        event.phase: "willDisplay"            
+            -- sent before an ad is displayed
+            event.location: namedLocation    
+            
+        event.phase: "didDisplay"
+            -- sent when an ad is displayed
+            event.location: namedLocation    
+            
+        event.phase: "closed"
+            -- sent when an ad is closed
+            event.location: namedLocation    
+            
+        event.phase: "clicked"
+            -- sent when an ad is clicked
+            event.location: namedLocation                
+            
+        event.phase: "cached"
+            -- sent when an ad is cached
+            event.location: namedLocation    
+            
         event.phase: "load"
+            -- sent when an ad has failed to load
             event.location: namedLocation    
-                event.result: "failed"
+            event.result: "failed"
+            
+        event.phase: "reward" 
+            -- Sent when a video has been viewed, and a reward should be given
+            event.location: namedLocation    
 
     event.type: "moreApps"
         event.phase: "willDisplay"
+            -- sent before More Apps is displayed
+            event.location: namedLocation    
+            
         event.phase: "didDisplay"
+            -- sent when More Apps is displayed
+            event.location: namedLocation    
+            
         event.phase: "closed"
+            -- sent when More Apps is closed
+            event.location: namedLocation    
+            
         event.phase: "clicked"
+            -- sent when an app in More Apps is clicked
+            event.location: namedLocation    
+            
         event.phase: "cached"
+            -- sent when More Apps is cached
+            event.location: namedLocation    
+            
         event.phase: "load"
+            -- sent when More Apps has failed to load
+            event.location: namedLocation    
             event.result: "failed"
 
 ```
+
 #### Example
+
 ```
 -- Require the Chartboost library
 local chartboost = require( "plugin.chartboost" )

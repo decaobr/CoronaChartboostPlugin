@@ -55,6 +55,8 @@ THE SOFTWARE.
 @property (nonatomic, assign) bool cbShouldDisplayLoadingViewForMoreApps;
 // Should we display more apps?
 @property (nonatomic, assign) bool cbShouldDisplayMoreApps;
+// Should we display rewarded videos?
+@property (nonatomic, assign) bool cbShouldDisplayRewardedVideos;
 // Should we display interstitials
 @property (nonatomic, assign) bool cbShouldDisplayInterstitial;
 
@@ -270,6 +272,8 @@ int chartboostLibrary::init( lua_State *L )
 		chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps = true;
 		// We allow display of more apps by default
 		chartBoostDelegate.cbShouldDisplayMoreApps = true;
+		// We allow display of rewarded videos by default
+		chartBoostDelegate.cbShouldDisplayRewardedVideos = true;
 		// We allow display of interstitials by default
 		chartBoostDelegate.cbShouldDisplayInterstitial = true;
 	}
@@ -312,6 +316,8 @@ int chartboostLibrary::config( lua_State *L )
 {
 	// Should we display more apps?
 	bool shouldDisplayMoreApps = true;
+	// Should we display more apps?
+	bool shouldDisplayRewardedVideos = true;
 	// Should we display loading view for more apps?
 	bool shouldDisplayLoadingViewForMoreApps = true;
 	// Should we display interstitials?
@@ -347,7 +353,7 @@ int chartboostLibrary::config( lua_State *L )
         
         lua_pop( L, 1 );
 		
-		// Get the interstitial interstitial table
+		// Get the interstitial table
 		lua_getfield( L, -1, "interstitial" );
 
 		// If interstitial is a table
@@ -365,11 +371,31 @@ int chartboostLibrary::config( lua_State *L )
 		}
 		
 		lua_pop( L, 1 );
+
+		// Get the rewarded video table
+		lua_getfield( L, -1, "rewardedVideo" );
+
+		// Check if it's a table
+		if ( lua_type( L, -1 ) == LUA_TTABLE )
+		{
+			// See if we should display interstitials
+			lua_getfield( L, -1, "display" );
+
+			// If display is a boolean
+			if ( lua_type( L, -1 ) == LUA_TBOOLEAN )
+			{
+				shouldDisplayRewardedVideos = lua_toboolean( L, -1 );
+			}
+			lua_pop( L, 1 );
+		}
+		
+		lua_pop( L, 1 );
 	}
 	
 	// Set the values
 	chartBoostDelegate.cbShouldDisplayMoreApps = shouldDisplayMoreApps;
 	chartBoostDelegate.cbShouldDisplayInterstitial = shouldDisplayInterstitial;
+    chartBoostDelegate.cbShouldDisplayRewardedVideos = shouldDisplayRewardedVideos;
 
 	chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps = shouldDisplayLoadingViewForMoreApps;
     [Chartboost setShouldDisplayLoadingViewForMoreApps:chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps];
@@ -702,6 +728,9 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_pushstring( self.L, "moreApps" );
 	lua_setfield( self.L, -2, CoronaEventTypeKey() );
 
+    lua_pushstring( self.L, [location UTF8String]);
+    lua_setfield( self.L, -2, "location");
+
 	// Push the phase string
 	lua_pushstring( self.L, "willDisplay" );
 	lua_setfield( self.L, -2, "phase" );
@@ -720,6 +749,9 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_pushstring( self.L, "moreApps" );
 	lua_setfield( self.L, -2, CoronaEventTypeKey() );
 	
+    lua_pushstring( self.L, [location UTF8String]);
+    lua_setfield( self.L, -2, "location");
+
 	// Push the phase string
 	lua_pushstring( self.L, "didDisplay" );
 	lua_setfield( self.L, -2, "phase" );
@@ -753,6 +785,9 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_pushstring( self.L, "moreApps" );
 	lua_setfield( self.L, -2, CoronaEventTypeKey() );
 
+    lua_pushstring( self.L, [location UTF8String]);
+    lua_setfield( self.L, -2, "location");
+
 	// Push the phase string
 	lua_pushstring( self.L, "closed" );
 	lua_setfield( self.L, -2, "phase" );
@@ -768,6 +803,9 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	Corona::Lua::NewEvent( self.L, "chartboost" );
 	lua_pushstring( self.L, "moreApps" );
 	lua_setfield( self.L, -2, CoronaEventTypeKey() );
+
+    lua_pushstring( self.L, [location UTF8String]);
+    lua_setfield( self.L, -2, "location");
 
 	// Push the phase string
 	lua_pushstring( self.L, "clicked" );
@@ -799,6 +837,9 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_pushstring( self.L, "load" );
 	lua_setfield( self.L, -2, "phase" );
 	
+    lua_pushstring( self.L, [location UTF8String]);
+    lua_setfield( self.L, -2, "location");
+
 	// Push the result
 	lua_pushstring( self.L, "failed" );
 	lua_setfield( self.L, -2, "result" );
@@ -815,6 +856,9 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     lua_pushstring( self.L, "moreApps" );
     lua_setfield( self.L, -2, CoronaEventTypeKey() );
 
+    lua_pushstring( self.L, [location UTF8String]);
+    lua_setfield( self.L, -2, "location");
+
     // Push the phase string
     lua_pushstring( self.L, "cached" );
     lua_setfield( self.L, -2, "phase" );
@@ -823,10 +867,27 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
 }
 
+// Rewarded video delegate methods
+
 // Called before a rewarded video will be displayed on the screen.
 - (BOOL)shouldDisplayRewardedVideo:(CBLocation)location
 {
-    return YES;
+	// Create the event
+	Corona::Lua::NewEvent( self.L, "chartboost" );
+	lua_pushstring( self.L, "rewardedVideo" );
+	lua_setfield( self.L, -2, CoronaEventTypeKey() );
+
+    lua_pushstring( self.L, [location UTF8String]);
+    lua_setfield( self.L, -2, "location");
+
+	// Push the phase string
+	lua_pushstring( self.L, "willDisplay" );
+	lua_setfield( self.L, -2, "phase" );
+	
+	// Dispatch the event
+	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
+
+	return self.cbShouldDisplayRewardedVideos;
 }
 
 

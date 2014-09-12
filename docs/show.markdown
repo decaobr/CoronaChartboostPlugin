@@ -1,25 +1,32 @@
 #### Overview
 
-Shows a Chartboost static interstitial, video interstitial or More Apps screen.  
+Shows a Chartboost static interstitial, video interstitial, rewarded video or More Apps screen.  
 
-**Note:** Video interstitials are shown by passing `"interstitial"` to this function.  
-For video interstitials to show you must set up a Video campaign and assign it to your apps in your Chartboost dashboard.
+**Note:** Non-rewarded video interstitials are shown by passing `"interstitial"` to this function. For video interstitials to show you must set up a Video campaign and assign it to your apps in your Chartboost dashboard.
 
 ## Syntax
 
 `````
-chartboost.show( adType, namedLocation )
+chartboost.show( adType, [namedLocation] )
 `````
 
-This function takes two arguments:
+This function can take two arguments:
 
 ##### adType - (required)
 
-*String.* The type of advertisement to show. Valid values are `"interstitial"` or  `"moreApps"`.
+*String.* One of the following values:  
+`"interstitial"`  
+`"rewardedVideo"`  
+`"moreApps"`
 
 ##### namedLocation - (optional)
 
-*String.* The name of the cached advertisement location. See chartboost.cache() for more information.
+*String.* The name of the advertisement location. 
+
+If no location is given, a default location will be used. For static interstitals, video interstitials and rewarded videos a location of `"Game Over"` is used. For More Apps a location of `"Home Screen"` is used.
+
+(Although you can specify any string you like, Chartboost recommends to use one of their predefined locations to help keep eCPM's as high as possible. See [chartboost.cache()](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/cache.markdown) for more info)
+
 
 #### Example
 

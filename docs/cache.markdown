@@ -1,22 +1,29 @@
 #### Overview
 
-Caches a Chartboost interstitial or More Apps screen for instant loading of future display.
+Caches a Chartboost interstitial, Rewarded Video or More Apps screen for instant loading of future display.
 
 ## Syntax
 
 ```
-chartboost.cache( namedLocation )
+chartboost.cache( adType, [namedLocation] )
 ```
 
-This function takes a single argument.
+This function can take two argument.
+
+##### adType - (required)
+
+*String.* One of the following values:  
+`"interstitial"`  
+`"rewardedVideo"`  
+`"moreApps"`
 
 ##### namedLocation - (optional)
 
-*String.* The name of the cached location. For caching of the More Apps screen, set this value to `"moreApps"`, for caching a specific interstitial, you may specify any string.
+*String.* The name of the cached location.  
   
-If no location is given, the default location `"Game Over"` is used.
+If no location is given, a default location will be used. For interstitals and rewarded videos a location of `"Game Over"` is used. For More Apps a location of `"Home Screen"` is used.
 
-(Although you can specify any string you like, Chartboost recommends to use one of their predefined locations to help keep eCPM's as high as possible)
+(Although you can specify any string you like, Chartboost recommends to use one of their predefined locations to help keep eCPM's as high as possible. See below.)
 
 #### Example
 
