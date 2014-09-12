@@ -4,46 +4,67 @@ Initializes the Chartboost library. This function is required and must be execut
 
 ## Syntax
 
-`````
+```
 chartboost.init( options )
-`````
+```
 
 This function takes a single argument, `options`, which is a table that accepts the following parameters:
 
 ##### appID - (required)
 
-__[String]__ Your Chartboost app ID. You can get your app ID from the [](https://www.chartboost.com)Chartboost website.
+*String.* Your Chartboost app ID. You can get your app ID from the [Chartboost website](https://www.chartboost.com).
 
 ##### appSignature - (required)
 
-__[String]__ Your Chartboost app signature. You can get your app signature from the [](https://www.chartboost.com)Chartboost website.
+*String.* Your Chartboost app signature. You can get your app signature from the [Chartboost website](https://www.chartboost.com).
 
 ##### listener - (optional)
 
-__[Listener]__ This function receives Chartboost events. With `event.type` of `"chartboost"`. The events returned for Chartboost are as follows:
+*Listener.* This function receives Chartboost events.
 
-__`"interstitial"__
+Event diagram:
 
-Phases of: `"willDisplay"`, `"didDisplay"`, `"closed"`, `"clicked"`, `"cached"`, `"load"`.
+```
+event.name: "chartboost"
+    event.type: "interstitial"
+        event.phase: "willDisplay"
+            event.location: namedLocation    
+        event.phase: "didDisplay"
+            event.location: namedLocation    
+        event.phase: "closed"
+            event.location: namedLocation    
+        event.phase: "clicked"
+            event.location: namedLocation                
+        event.phase: "cached"
+            event.location: namedLocation    
+        event.phase: "load"
+            event.location: namedLocation    
+                event.result: "failed"
 
-__`"moreApps"__
+    event.type: "moreApps"
+        event.phase: "willDisplay"
+        event.phase: "didDisplay"
+        event.phase: "closed"
+        event.phase: "clicked"
+        event.phase: "cached"
+        event.phase: "load"
+            event.result: "failed"
 
-Phases of: `"willDisplay"`, `"didDisplay"`, `"closed"`, `"clicked"`, `"cached"`, `"load"`.
-
+```
 #### Example
+```
+-- Require the Chartboost library
+local chartboost = require( "plugin.chartboost" )
 
-    -- Require the Chartboost library
-    local chartboost = require( "plugin.chartboost" )
-
-    -- Initialize the Chartboost library
-    chartboost.init(
-    {
-        appID = "app_ID_generated_from_chartboost_here",
-        appSignature = "app_signature_generated_from_chartboost_here",  
-        listener = function( event )
-            -- Print the events key/pair values
-            for k,v in pairs( event ) do
-                print( k, ":", v )
-            end
+-- Initialize the Chartboost library
+chartboost.init {
+    appID = "app_ID_generated_from_chartboost_here",
+    appSignature = "app_signature_generated_from_chartboost_here",  
+    listener = function( event )
+        -- Print the events key/pair values
+        for k,v in pairs( event ) do
+            print( k, ":", v )
         end
-    })
+    end
+}
+```

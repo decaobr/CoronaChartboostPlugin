@@ -1,6 +1,9 @@
 #### Overview
 
-Shows a Chartboost interstitial or more apps screen.
+Shows a Chartboost static interstitial, video interstitial or More Apps screen.  
+
+**Note:** Video interstitials are shown by passing `"interstitial"` to this function.  
+For video interstitials to show you must set up a Video campaign and assign it to your apps in your Chartboost dashboard.
 
 ## Syntax
 
@@ -12,19 +15,21 @@ This function takes two arguments:
 
 ##### adType - (required)
 
-__[String]__ The type of advertisement to show. Valid vales are `"interstitial"` and `"moreApps"`
+*String.* The type of advertisement to show. Valid values are `"interstitial"` or  `"moreApps"`.
 
 ##### namedLocation - (optional)
 
-__[String]__ The name of the cached advertisement location. See chartboost.cache() for more information.
+*String.* The name of the cached advertisement location. See chartboost.cache() for more information.
 
 #### Example
 
-	-- Require the Chartboost library
-	local chartboost = require( "plugin.chartboost" )
+```
+-- Require the Chartboost library
+local chartboost = require( "plugin.chartboost" )
 
-	-- Show an interstitial
-	chartboost.show( 'interstitial' )
+-- Show an interstitial
+chartboost.show( "interstitial" )
 
-	-- Show a more apps screen
-	chartboost.show( 'moreApps' )
+-- Show a more apps screen
+chartboost.show( "moreApps" )
+```
