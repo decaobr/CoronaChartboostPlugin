@@ -1,6 +1,6 @@
 #### Overview
 
-    Initializes the Chartboost library. This function is required and must be executed before making other Chartboost calls such as `chartboost.show()`.
+Initializes the Chartboost library. This function is required and must be executed before making other Chartboost calls such as `chartboost.show()`.
 
 ## Syntax
 
@@ -8,7 +8,7 @@
 chartboost.init( options )
 `````
 
-    This function takes a single argument, `options`, which is a table that accepts the following parameters:
+This function takes a single argument, `options`, which is a table that accepts the following parameters:
 
 ##### appID - (required)
 
