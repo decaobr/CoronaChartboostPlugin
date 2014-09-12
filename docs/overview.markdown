@@ -1,13 +1,7 @@
-### Chartboost Plugin Documentation
-
 #### Overview
+| **Availability** | **Platforms**|
+|---|---|
+|Corona Basic, Pro, Enterprise|Android, iOS, Amazon|
 
-> * * *
-> 
-> **Availability:** Corona Basic, Pro, Enterprise.
-> 
-> **Platforms:** Android, iOS, Amazon.
-> 
-> * * *
 
 The Chartboost plugin lets you utilize Chartboost's advertisement SDK within a Corona project.
