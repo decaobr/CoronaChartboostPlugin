@@ -26,6 +26,8 @@ Tested to be fully compatible with iOS 8.
 
 [HasCachedMoreApps](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/hasCachedMoreApps.markdown)
 
+[HasCachedRewardedVideo](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/hasCachedRewardedVideo.markdown)
+
 ##License
 
 The MIT License (MIT)
