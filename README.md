@@ -1,6 +1,6 @@
 ##Corona Chartboost Plugin
 
-This is an updated Chartboost plugin for Corona SDK. Tested to be fully compatible with iOS 8.  
+This is an updated Chartboost plugin for Corona SDK. Tested to be fully compatible with iOS 8.
   
 #####You can find pre-compiled binaries in the "binaries" folder.  
 
