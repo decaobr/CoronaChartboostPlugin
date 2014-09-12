@@ -97,10 +97,11 @@ class chartboostLibrary
 		static int init( lua_State *L );
 		static int startSession( lua_State *L );
 		static int config( lua_State *L );
-		static int cache( lua_State *L );
 		static int show( lua_State *L );
+		static int cache( lua_State *L );
 		static int hasCachedInterstitial( lua_State *L );
 		static int hasCachedMoreApps( lua_State *L );
+		static int hasCachedRewardedVideo( lua_State *L );
 		static int getPluginVersion( lua_State *L );
 
 	private:
@@ -135,10 +136,11 @@ int chartboostLibrary::Open( lua_State *L )
 		{
 			{ "init", init },
 			{ "startSession", startSession },
-			{ "cache", cache },
 			{ "show", show },
+			{ "cache", cache },
 			{ "hasCachedInterstitial", hasCachedInterstitial },
 			{ "hasCachedMoreApps", hasCachedMoreApps },
+			{ "hasCachedRewardedVideo", hasCachedRewardedVideo },
 			{ "config", config },
 			{ "getPluginVersion", getPluginVersion },
 			{ NULL, NULL }
@@ -375,33 +377,58 @@ int chartboostLibrary::config( lua_State *L )
 	return 0;
 }
 
-// [Lua] chartboost.cache( [location] )
+// [Lua] chartboost.cache( adType, [location] )
 int chartboostLibrary::cache( lua_State *L )
 {
-	// The named location
+	const char *adType = NULL;
 	const char *namedLocation = NULL;
-	
+
+	// Get the ad type
+    if ( lua_type( L, 1 ) == LUA_TSTRING ) {
+        adType = lua_tostring(L, 1);
+    }
+
 	// Get the named location
-	if ( lua_type( L, 1 ) == LUA_TSTRING ) {
-		namedLocation = lua_tostring( L, 1 );
+	if ( lua_type( L, 2 ) == LUA_TSTRING ) {
+		namedLocation = lua_tostring( L, 2 );
 	}
+    
+    //backwards compatibility with Gremlin Interactive's v1.x library
+    if (adType == NULL) { // no parameters. assume interstitial
+        adType = "interstitial";
+
+    } else if (
+        (strcmp( adType, "interstitial" ) != 0) &&
+        (strcmp( adType, "rewardedVideo" ) != 0) &&
+        (strcmp( adType, "moreApps" ) != 0)
+    ) { // assume interstitial with named location as first parameter
+        adType = "interstitial";
+        namedLocation = lua_tostring(L, 1);
+    }
 	
     // If namedLocation isn't null, then cache the location for the interstitial.
     if ( namedLocation != NULL ) {
-        if ( strcmp( namedLocation, "moreApps" ) == 0 ) {
-            [Chartboost cacheMoreApps:CBLocationHomeScreen];
+        if ( strcmp( adType, "moreApps" ) == 0 ) {
+            [Chartboost cacheMoreApps:[NSString stringWithUTF8String:namedLocation]];
+        } else if ( strcmp( adType, "rewardedVideo" ) == 0 ) {
+            [Chartboost cacheRewardedVideo:[NSString stringWithUTF8String:namedLocation]];
         } else {
             [Chartboost cacheInterstitial:[NSString stringWithUTF8String:namedLocation]];
         }
         
     } else {
-        [Chartboost cacheInterstitial:CBLocationGameOver];
+        if ( strcmp( adType, "moreApps" ) == 0 ) {
+            [Chartboost cacheMoreApps:CBLocationHomeScreen];
+        } else if ( strcmp( adType, "rewardedVideo" ) == 0 ) {
+            [Chartboost cacheRewardedVideo:CBLocationGameOver];
+        } else {
+            [Chartboost cacheInterstitial:CBLocationGameOver];
+        }
     }
-    
 	return 0;
 }
 
-// [Lua] chartboost.show( adType, [namedLocation] )
+//  [Lua] chartboost.show( adType, [namedLocation] )
 int chartboostLibrary::show( lua_State *L )
 {
 	// if Chartboost has not been initialized
@@ -420,19 +447,25 @@ int chartboostLibrary::show( lua_State *L )
 		namedLocation = lua_tostring( L, 2 );
 	}
 
-    if ( adType != NULL ) {
-        if ( strcmp( adType, "interstitial" ) == 0 ) {
-            if ( namedLocation != NULL ) {
-                [Chartboost showInterstitial:[NSString stringWithUTF8String:namedLocation]];
-            } else {
-                [Chartboost showInterstitial:CBLocationGameOver];
-            }
-            
-        } else if ( strcmp( adType, "moreApps" ) == 0 ) {
+    // If namedLocation isn't null, then show the location for the interstitial.
+    if ( namedLocation != NULL ) {
+        if ( strcmp( adType, "moreApps" ) == 0 ) {
+            [Chartboost showMoreApps:[NSString stringWithUTF8String:namedLocation]];
+        } else if ( strcmp( adType, "rewardedVideo" ) == 0 ) {
+            [Chartboost showRewardedVideo:[NSString stringWithUTF8String:namedLocation]];
+        } else {
+            [Chartboost showInterstitial:[NSString stringWithUTF8String:namedLocation]];
+        }
+        
+    } else {
+        if ( strcmp( adType, "moreApps" ) == 0 ) {
             [Chartboost showMoreApps:CBLocationHomeScreen];
+        } else if ( strcmp( adType, "rewardedVideo" ) == 0 ) {
+            [Chartboost showRewardedVideo:CBLocationGameOver];
+        } else {
+            [Chartboost showInterstitial:CBLocationGameOver];
         }
     }
-	
 	return 0;
 }
 	
@@ -445,6 +478,20 @@ int chartboostLibrary::hasCachedInterstitial( lua_State *L )
         lua_pushboolean( L, [Chartboost hasInterstitial:[NSString stringWithUTF8String:namedLocation]] );
     } else {
         lua_pushboolean( L, [Chartboost hasInterstitial:CBLocationGameOver] );
+    }
+
+    return 1;
+}
+
+// [Lua] chartboost.hasCachedRewardedVideo( namedLocation )
+int chartboostLibrary::hasCachedRewardedVideo( lua_State *L )
+{
+	const char *namedLocation = lua_tostring( L, 1 );
+	
+    if ( namedLocation != NULL ) {
+        lua_pushboolean( L, [Chartboost hasRewardedVideo:[NSString stringWithUTF8String:namedLocation]] );
+    } else {
+        lua_pushboolean( L, [Chartboost hasRewardedVideo:CBLocationGameOver] );
     }
 
     return 1;
@@ -545,7 +592,8 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
  */
 - (void)didDismissInterstitial:(CBLocation)location
 {
-	// We are no longer requesting an ad
+    // Fired on click and close
+    // Not needed since we fire events for both
 }
 
 // Same as above, but only called when dismissed for a close
@@ -693,7 +741,8 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
  */
 - (void)didDismissMoreApps:(CBLocation)location
 {
-	// We are not longer requesting a more apps page
+    // Fired on click and close
+    // Not needed since we fire events for both
 }
 
 // Same as above, but only called when dismissed for a close
@@ -772,6 +821,140 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     
     // Dispatch the event
     Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
+}
+
+// Called before a rewarded video will be displayed on the screen.
+- (BOOL)shouldDisplayRewardedVideo:(CBLocation)location
+{
+    return YES;
+}
+
+
+// Called after a rewarded video has been displayed on the screen.
+- (void)didDisplayRewardedVideo:(CBLocation)location
+{
+	// Create the event
+	Corona::Lua::NewEvent( self.L, "chartboost" );
+	lua_pushstring( self.L, "rewardedVideo" );
+	lua_setfield( self.L, -2, CoronaEventTypeKey() );
+    
+    lua_pushstring( self.L, [location UTF8String]);
+    lua_setfield( self.L, -2, "location");
+	
+	// Push the phase string
+	lua_pushstring( self.L, "didDisplay" );
+	lua_setfield( self.L, -2, "phase" );
+	
+	// Dispatch the event
+	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
+}
+
+// Called after a rewarded video has been loaded from the Chartboost API
+// servers and cached locally.
+- (void)didCacheRewardedVideo:(CBLocation)location
+{
+    // Create the event
+    Corona::Lua::NewEvent( self.L, "chartboost" );
+    lua_pushstring( self.L, "rewardedVideo" );
+    lua_setfield( self.L, -2, CoronaEventTypeKey() );
+
+    lua_pushstring( self.L, [location UTF8String]);
+    lua_setfield( self.L, -2, "location");
+    
+    // Push the phase string
+    lua_pushstring( self.L, "cached" );
+    lua_setfield( self.L, -2, "phase" );
+    
+    // Dispatch the event
+    Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
+}
+
+// Called after a rewarded video has attempted to load from the Chartboost API
+// servers but failed.
+- (void)didFailToLoadRewardedVideo:(CBLocation)location
+                         withError:(CBLoadError)error
+{
+	// Create the event
+	Corona::Lua::NewEvent( self.L, "chartboost" );
+	lua_pushstring( self.L, "rewardedVideo" );
+	lua_setfield( self.L, -2, CoronaEventTypeKey() );
+
+	// Push the phase string
+	lua_pushstring( self.L, "load" );
+	lua_setfield( self.L, -2, "phase" );
+
+    lua_pushstring( self.L, [location UTF8String]);
+    lua_setfield( self.L, -2, "location");
+	
+	// Push the result
+	lua_pushstring( self.L, "failed" );
+	lua_setfield( self.L, -2, "result" );
+	
+	// Dispatch the event
+	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
+}
+
+
+// Called after a rewarded video has been dismissed.
+- (void)didDismissRewardedVideo:(CBLocation)location
+{
+    // Fired on click and close
+    // Not needed since we fire events for both
+}
+
+// Called after a rewarded video has been closed.
+- (void)didCloseRewardedVideo:(CBLocation)location
+{
+	// Create the event
+	Corona::Lua::NewEvent( self.L, "chartboost" );
+	lua_pushstring( self.L, "rewardedVideo" );
+	lua_setfield( self.L, -2, CoronaEventTypeKey() );
+
+	lua_pushstring( self.L, "closed" );
+	lua_setfield( self.L, -2, "phase" );
+    
+    lua_pushstring( self.L, [location UTF8String]);
+    lua_setfield( self.L, -2, "location");
+	
+	// Dispatch the event
+	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
+}
+
+// Called after a rewarded video has been clicked.
+- (void)didClickRewardedVideo:(CBLocation)location
+{
+	// Create the event
+	Corona::Lua::NewEvent( self.L, "chartboost" );
+	lua_pushstring( self.L, "rewardedVideo" );
+	lua_setfield( self.L, -2, CoronaEventTypeKey() );
+
+	lua_pushstring( self.L, "clicked" );
+	lua_setfield( self.L, -2, "phase" );
+
+    lua_pushstring( self.L, [location UTF8String]);
+    lua_setfield( self.L, -2, "location");
+	
+	// Dispatch the event
+	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
+}
+
+// Called after a rewarded video has been viewed completely and user is eligible for reward.
+- (void)didCompleteRewardedVideo:(CBLocation)location
+                      withReward:(int)reward
+{
+	// Create the event
+	Corona::Lua::NewEvent( self.L, "chartboost" );
+	lua_pushstring( self.L, "rewardedVideo" );
+	lua_setfield( self.L, -2, CoronaEventTypeKey() );
+
+	lua_pushstring( self.L, "reward" );
+	lua_setfield( self.L, -2, "phase" );
+
+    lua_pushstring( self.L, [location UTF8String]);
+    lua_setfield( self.L, -2, "location");
+	
+	// Dispatch the event
+	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
 }
 
 @end
