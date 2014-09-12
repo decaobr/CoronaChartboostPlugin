@@ -1,14 +1,11 @@
-==========================
-Corona Chartboost Plugin
-==========================
+##Corona Chartboost Plugin
 
 This is an updated Chartboost plugin for the Corona SDK. Tested to be fully compatible with iOS 8.  
   
-There is no need to compile the source. You can find pre-compiled binaries in the "binaries" folder.
+#####There is no need to compile the source. You can find pre-compiled binaries in the "binaries" folder.  
 
-==========================
 
-Plugin Docs:
+##Plugin Docs
 
 [Overview](https://github.com/GremlinInteractive/CoronaChartboostPlugin/tree/master/docs/overview.markdown)
 
@@ -26,9 +23,7 @@ Plugin Docs:
 
 [HasCachedMoreApps](https://github.com/GremlinInteractive/CoronaChartboostPlugin/tree/master/docs/hasCachedMoreApps.markdown)
 
-==========================
-License
-==========================
+##License
 
 The MIT License (MIT)
 
