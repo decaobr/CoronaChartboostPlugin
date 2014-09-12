@@ -8,21 +8,21 @@ This is an updated Chartboost plugin for the Corona SDK. Tested to be fully comp
 
 ##Plugin Docs
 
-[Overview](https://github.com/swipeware/CoronaChartboostPlugin/tree/master/docs/overview.markdown)
+[Overview](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/overview.markdown)
 
-[Setup](https://github.com/swipeware/CoronaChartboostPlugin/tree/master/docs/setup.markdown)
+[Setup](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/setup.markdown)
 
-[Init](https://github.com/swipeware/CoronaChartboostPlugin/tree/master/docs/init.markdown)
+[Init](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/init.markdown)
 
-[Cache](https://github.com/swipeware/CoronaChartboostPlugin/tree/master/docs/cache.markdown)
+[Cache](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/cache.markdown)
 
-[Show](https://github.com/swipeware/CoronaChartboostPlugin/tree/master/docs/show.markdown)
+[Show](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/show.markdown)
 
-[StartSession](https://github.com/swipeware/CoronaChartboostPlugin/tree/master/docs/startSession.markdown)
+[StartSession](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/startSession.markdown)
 
-[HasCachedInterstitial](https://github.com/swipeware/CoronaChartboostPlugin/tree/master/docs/hasCachedInterstitial.markdown)
+[HasCachedInterstitial](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/hasCachedInterstitial.markdown)
 
-[HasCachedMoreApps](https://github.com/swipeware/CoronaChartboostPlugin/tree/master/docs/hasCachedMoreApps.markdown)
+[HasCachedMoreApps](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/hasCachedMoreApps.markdown)
 
 ##License
 
