@@ -1,6 +1,7 @@
 ##Corona Chartboost Plugin
+Currently uses Chartboost SDK 5.0.1 (Sep. 9, 2014).  
 
-This is an updated Chartboost plugin for Corona SDK. Currently uses Chartboost SDK 5.0.  
+This is the latest Chartboost plugin for Corona SDK.   
 Tested to be fully compatible with iOS 8.
   
 #####You can find pre-compiled binaries in the "binaries" folder.  
