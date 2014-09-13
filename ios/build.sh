@@ -27,7 +27,7 @@ popd > /dev/null
 # Build plugin
 # 
 CONFIG=Release
-TARGET=chartboostLibrary
+TARGET=Chartboost
 BINARY=lib$TARGET.a
 OUTPUT_DIR=$path/build-universal/$TARGET/ios
 

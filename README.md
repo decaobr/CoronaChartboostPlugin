@@ -2,7 +2,7 @@
 
 The Chartboost plugin for Corona SDK allows you to show static interstitials, video interstitials and rewarded videos in your Corona based apps.  
 
-Currently uses Chartboost SDK 5.0.1 (Sep. 9, 2014).  
+Currently uses Chartboost SDK 5.0.2 (Sep. 12, 2014).  
 Tested to be fully compatible with iOS 8.
   
 #####You can find pre-compiled binaries in the "binaries" folder.  
@@ -15,19 +15,24 @@ Tested to be fully compatible with iOS 8.
 
 [Setup](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/setup.markdown)
 
-[Init](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/init.markdown)
+**Plugin functions:**
 
-[Cache](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/cache.markdown)
+[init](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/init.markdown)
 
-[Show](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/show.markdown)
+[cache](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/cache.markdown)
 
-[StartSession](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/startSession.markdown)
+[show](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/show.markdown)
 
-[HasCachedInterstitial](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/hasCachedInterstitial.markdown)
+[startSession](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/startSession.markdown)
 
-[HasCachedMoreApps](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/hasCachedMoreApps.markdown)
+[hasCachedInterstitial](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/hasCachedInterstitial.markdown)
 
-[HasCachedRewardedVideo](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/hasCachedRewardedVideo.markdown)
+[hasCachedMoreApps](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/hasCachedMoreApps.markdown)
+
+[hasCachedRewardedVideo](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/hasCachedRewardedVideo.markdown)
+
+[getPluginVersion](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/getPluginVersion.markdown)
+
 
 ##License
 
@@ -35,7 +40,7 @@ The MIT License (MIT)
 
 Copyright (c) 2014 Gremlin Interactive Limited
 
-Updated for Chartboost SDK 5.0 by Ingemar Bergmark, Swipeware (www.swipeware.com)
+Updated for Chartboost SDK 5.x by Ingemar Bergmark, Swipeware (www.swipeware.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
