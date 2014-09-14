@@ -7,6 +7,8 @@ The MIT License (MIT)
 
 Copyright (c) 2014 Gremlin Interactive Limited
 
+Updated for Chartboost SDK 5.x by Ingemar Bergmark, Swipeware (www.swipeware.com)
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -187,53 +189,32 @@ public class show implements com.naef.jnlua.NamedJavaFunction
                 public void run()
                 {
                     // If the chartboost instance is valid - could be invalid by calling this method before init invokes
-                    if ( chartboostHelper.chartboostInstance != null )
+				    // If the ad type isn't null
+                    if ( theAdType != null )
                     {
-    				    // If the ad type isn't null
-                        if ( theAdType != null )
+                        // If we want to display an interstitial
+                        if ( theAdType.equalsIgnoreCase( "interstitial" ) )
                         {
-                            // If we want to display an interstitial
-                            if ( theAdType.equalsIgnoreCase( "interstitial" ) )
+                            // If the user wants to show a cached nameded location
+                            if ( theNamedLocation != null )
                             {
-                                // If we have already requested an ad, and are waiting for it to show/fail, lets not execute this block of code
-                                if ( chartboostHelper.cbHasRequestedAd == false )
-                                {
-                                    //System.out.println( "CHARTBOOST: Showing interstitial\n");
-
-                                    // If the user wants to show a cached nameded location
-                                    if ( theNamedLocation != null )
-                                    {
-                                        if ( chartboostHelper.chartboostInstance.hasCachedInterstitial( theNamedLocation ) )
-                                        {
-                                            chartboostHelper.chartboostInstance.showInterstitial( theNamedLocation );
-                                        }
-                                        else
-                                        {
-                                            chartboostHelper.chartboostInstance.showInterstitial( "DefaultInterstitial" );
-                                        }
-                                    }
-                                    // User just wants to show a default interstitial
-                                    else
-                                    {
-                                        chartboostHelper.chartboostInstance.showInterstitial( "DefaultInterstitial" );
-                                    }
-                                    chartboostHelper.cbHasRequestedAd = true;
-                                }
+                                Chartboost.showInterstitial( theNamedLocation );
                             }
-                            // If we want to display the more apps page
-                            else if ( theAdType.equalsIgnoreCase( "moreApps" ) )
+                            else
                             {
-                                // If we have already requested a more apps page, and are waiting for it to show/fail, lets not execute this block of code
-                                if ( chartboostHelper.cbHasRequestedMoreApps == false )
-                                {
-                                    //printf( "CHARTBOOST: Showing more apps\n");
-                                    chartboostHelper.chartboostInstance.showMoreApps();
-                                }
+                                Chartboost.showInterstitial( "Game Over" );
                             }
                         }
-                        else
+                        else if ( theAdType.equalsIgnoreCase( "moreApps" ) )
                         {
-                            // Show error
+                            if ( theNamedLocation != null )
+                            {
+                                Chartboost.showMoreApps( theNamedLocation );
+                            }
+                            else
+                            {
+                                Chartboost.showMoreApps( "Game Over" );
+                            }
                         }
                     }
                 }

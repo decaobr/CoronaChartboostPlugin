@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.gremlininteractive.chartboostPlugin"
-          android:versionCode="1"
-          android:versionName="1.0"
+          package="com.swipeware.chartboostPlugin"
+          android:versionCode="100"
+          android:versionName="2.0"
 	      android:installLocation="auto">
 	<!--
 	 Set the minimum and target Android API levels here to inform the app store what OS versions this app supports.
@@ -38,7 +38,7 @@
 	 -->
 	<application android:label="Chartboost Plugin"
 	             android:hardwareAccelerated="true"
-	             android:debuggable="true">
+	             android:debuggable="false">
 		
 		<!-- The main Corona activity that runs the Corona project. -->
 		<activity android:name="com.ansca.corona.CoronaActivity"
@@ -67,12 +67,12 @@
 		
 		<!-- Corona content provider required by the video player and mail app to access this app's local files. -->
 		<provider android:name="com.ansca.corona.storage.FileContentProvider"
-		          android:authorities="com.gremlininteractive.chartboostPlugin.files" />
+		          android:authorities="com.swipeware.chartboostPlugin.files" />
 		
 		<!-- Corona service used to perform background operations such as managing notifications. -->
 		<service android:name="com.ansca.corona.CoronaService" />
 
-		<activity android:name="com.gremlininteractive.chartboostPlugin" />
+		<activity android:name="com.swipeware.chartboostPlugin" />
 
 		<activity android:name="com.chartboost.sdk.CBImpressionActivity"
             android:excludeFromRecents="true" />
@@ -101,7 +101,7 @@
 			<intent-filter>
 				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
 				<action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-				<category android:name="com.gremlininteractive.chartboostPlugin" />
+				<category android:name="com.swipeware.chartboostPlugin" />
 			</intent-filter>
 		</receiver>
 

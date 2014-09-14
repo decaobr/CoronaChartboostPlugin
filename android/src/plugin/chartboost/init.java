@@ -7,6 +7,8 @@ The MIT License (MIT)
 
 Copyright (c) 2014 Gremlin Interactive Limited
 
+Updated for Chartboost SDK 5.x by Ingemar Bergmark, Swipeware (www.swipeware.com)
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -97,52 +99,6 @@ public class init implements com.naef.jnlua.NamedJavaFunction
     // Our lua callback listener
     private int listenerRef;
 
-
-    // Event task
-    private class LuaCallBackListenerTask implements CoronaRuntimeTask 
-    {
-        private int fLuaListenerRegistryId;
-        private String fStatus = null;
-
-        public LuaCallBackListenerTask( int luaListenerRegistryId, String status ) 
-        {
-            fLuaListenerRegistryId = luaListenerRegistryId;
-            fStatus = status;
-        }
-
-        @Override
-        public void executeUsing( CoronaRuntime runtime )
-        {
-            try 
-            {
-                // Fetch the Corona runtime's Lua state.
-                final LuaState L = runtime.getLuaState();
-
-                // Dispatch the lua callback
-                if ( CoronaLua.REFNIL != fLuaListenerRegistryId ) 
-                {
-                    // Setup the event
-                    CoronaLua.newEvent( L, "license" );
-
-                    // Event type
-                    L.pushString( "check" );
-                    L.setField( -2, "type" );
-
-                    // Status
-                    L.pushString( "valid" );
-                    L.setField( -2, "status" );
-
-                    // Dispatch the event
-                    CoronaLua.dispatchEvent( L, fLuaListenerRegistryId, 0 );
-                }
-            }
-            catch ( Exception ex ) 
-            {
-                ex.printStackTrace();
-            }
-        }
-    }
-
     /**
      * This method is called when the Lua function is called.
      * <p>
@@ -173,7 +129,6 @@ public class init implements com.naef.jnlua.NamedJavaFunction
             // If an options table has been passed
             if ( luaState.isTable( -1 ) )
             {
-                //System.out.println( "options table exists" );
                 // Get the listener field
                 luaState.getField( -1, "listener" );
                 if ( CoronaLua.isListener( luaState, -1, "chartboost" ) ) 
@@ -211,9 +166,6 @@ public class init implements com.naef.jnlua.NamedJavaFunction
                     System.out.println( "Error: appSignature expected, got " + luaState.typeName( -1 ) );
                 }
                 luaState.pop( 1 );
-
-                // Pop the options table
-                luaState.pop( 1 );
             }
             // No options table passed in
             else
@@ -234,7 +186,7 @@ public class init implements com.naef.jnlua.NamedJavaFunction
             }
 
             // Corona runtime task dispatcher
-            final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( luaState );
+            //final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( luaState );
 
             // Set variables to pass to chartboost (need to be final as they are accesed from within an inner class)
             final String cbAppID = appID;
@@ -246,25 +198,35 @@ public class init implements com.naef.jnlua.NamedJavaFunction
             {
                 public void run()
                 {
+                    ChartboostDelegate chartboostDelegate = new chartboostDelegate();
+
+                    Chartboost.startWithAppId(activity, cbAppID, cbAppSignature);
+                    Chartboost.setShouldRequestInterstitialsInFirstSession(true);
+                    Chartboost.setShouldDisplayLoadingViewForMoreApps(true);
+                    Chartboost.setShouldPrefetchVideoContent(true);
+                    Chartboost.setAutoCacheAds(true);
+                    Chartboost.setDelegate(chartboostDelegate);
+                    Chartboost.onCreate(activity);
+
                     // If the chartboost instance hasn't already being created
-                    if ( chartboostHelper.chartboostInstance == null )
-                    {
+                    //if ( chartboostHelper.chartboostInstance == null )
+                    //{
                         // Init Chartboost
-                        chartboostHelper.chartboostInstance = Chartboost.sharedChartboost();
+                        //chartboostHelper.chartboostInstance = Chartboost.sharedChartboost();
 
                         // Create the Chartboost delegate
-                        ChartboostDelegate chartboostDelegate = new chartboostDelegate( activity, "CBT" );
-                        chartboostHelper.chartboostInstance.onCreate( activity, cbAppID, cbAppSignature, chartboostDelegate );
-                        chartboostHelper.chartboostInstance.onStart( activity );
+                        //ChartboostDelegate chartboostDelegate = new chartboostDelegate( activity, "CBT" );
+                        //chartboostHelper.chartboostInstance.onCreate( activity, cbAppID, cbAppSignature, chartboostDelegate );
+                        //chartboostHelper.chartboostInstance.onStart( activity );
                         // For OpenGL
-                        CBPreferences.getInstance().setImpressionsUseActivities( true );
+                        //TODO CBPreferences.getInstance().setImpressionsUseActivities( true );
 
                         // Create the task
-                        LuaCallBackListenerTask task = new LuaCallBackListenerTask( listenerRef, "" );
+                        //LuaCallBackListenerTask task = new LuaCallBackListenerTask( listenerRef, "" );
 
                         // Send the task to the Corona runtime asynchronously.
-                        dispatcher.send( task ); 
-                    }                 
+                        //dispatcher.send( task ); 
+                    //}                 
                 }
             };
 

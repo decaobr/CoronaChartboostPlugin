@@ -7,6 +7,8 @@ The MIT License (MIT)
 
 Copyright (c) 2014 Gremlin Interactive Limited
 
+Updated for Chartboost SDK 5.x by Ingemar Bergmark, Swipeware (www.swipeware.com)
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -109,6 +111,9 @@ public class hasCachedMoreApps implements com.naef.jnlua.NamedJavaFunction
     {
         try
         {
+            // The named location
+            final String namedLocation = luaState.checkString( 1 );
+
             // Corona Activity
             CoronaActivity coronaActivity = null;
             if ( CoronaEnvironment.getCoronaActivity() != null )
@@ -126,13 +131,18 @@ public class hasCachedMoreApps implements com.naef.jnlua.NamedJavaFunction
                     // Is more apps cached?
                     boolean result = false;
 
-                    // If the chartboost instance is valid - could be invalid by calling this method before init invokes
-                    if ( chartboostHelper.chartboostInstance != null )
+                    if ( namedLocation != null )
                     {
-                        result = chartboostHelper.chartboostInstance.hasCachedMoreApps();
+                        result = Chartboost.hasMoreApps( namedLocation );
                     }
+                    else
+                    {
+                        result = Chartboost.hasMoreApps( "Home Screen" );
+                    }
+
                     // Push the result
                     L.pushBoolean( result );
+
                     // Return the result
                     return result;
                 }

@@ -1,5 +1,5 @@
 //
-//  config.java
+//  hasCachedMoreApps().java
 //  Chartboost Plugin
 //
 /*
@@ -56,6 +56,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.io.File;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.Callable;
 
 // Android Imports
 import android.app.Activity;
@@ -80,11 +82,11 @@ import android.R.drawable;
 import com.chartboost.sdk.*;
 
 /**
- * Implements the config() function in Lua.
+ * Implements the hasCachedMoreApps() function in Lua.
  * <p>
- * Used for configuring the Chartboost Plugin.
+ * Used for starting a Chartboost session.
  */
-public class config implements com.naef.jnlua.NamedJavaFunction 
+public class hasCachedRewardedVideo implements com.naef.jnlua.NamedJavaFunction 
 {
     /**
      * Gets the name of the Lua function as it would appear in the Lua script.
@@ -93,7 +95,7 @@ public class config implements com.naef.jnlua.NamedJavaFunction
     @Override
     public String getName()
     {
-        return "config";
+        return "hasCachedRewardedVideo";
     }
 
     /**
@@ -109,6 +111,50 @@ public class config implements com.naef.jnlua.NamedJavaFunction
     {
         try
         {
+            // The named location
+            final String namedLocation = luaState.checkString( 1 );
+
+            // Corona Activity
+            CoronaActivity coronaActivity = null;
+            if ( CoronaEnvironment.getCoronaActivity() != null )
+            {
+                coronaActivity = CoronaEnvironment.getCoronaActivity();
+            }
+
+            // The lua state
+            final LuaState L = luaState;
+
+            // See if the more apps page is cached
+            FutureTask<Boolean> isCachedResult = new FutureTask<Boolean>(new Callable<Boolean>() {
+                @Override
+                public Boolean call() throws Exception {
+                    // Is more apps cached?
+                    boolean result = false;
+
+                    if ( namedLocation != null )
+                    {
+                        result = Chartboost.hasRewardedVideo( namedLocation );
+                    }
+                    else
+                    {
+                        result = Chartboost.hasRewardedVideo( "Game Over" );
+                    }
+
+                    // Push the result
+                    L.pushBoolean( result );
+
+                    // Return the result
+                    return result;
+                }
+            });
+
+            // Run the activity on the uiThread
+            if ( coronaActivity != null )
+            {
+                coronaActivity.runOnUiThread( isCachedResult );
+                // Get the value of isCached
+                boolean returnValue = isCachedResult.get();
+            }
         }
         catch( Exception ex )
         {
@@ -116,6 +162,6 @@ public class config implements com.naef.jnlua.NamedJavaFunction
             ex.printStackTrace();
         }
         
-        return 0;
+        return 1;
     }
 }

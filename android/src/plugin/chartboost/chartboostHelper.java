@@ -7,6 +7,8 @@ The MIT License (MIT)
 
 Copyright (c) 2014 Gremlin Interactive Limited
 
+Updated for Chartboost SDK 5.x by Ingemar Bergmark, Swipeware (www.swipeware.com)
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -39,17 +41,9 @@ import com.chartboost.sdk.*;
 // Our Chartboost Class
 public class chartboostHelper
 {
-	// Plugin version
-	public static String pluginVersion = "1.4.1-no-lic";
-	// State variables
-	public static boolean hasCalledInit = false;
-	public static boolean hasCalledConfig = false;
-	// Chartboost
-	public static Chartboost chartboostInstance = null;
-	public static boolean cbHasRequestedAd = false;
-	public static boolean cbHasRequestedMoreApps = false;
-	public static boolean cbHasRequestedCache = false;
-	// Lua
-	public static LuaState luaState = null;
-	public static int listenerRef = 0;
+    // Plugin version
+    public static String pluginVersion = "2.0";
+    // Lua
+    public static LuaState luaState = null;
+    public static int listenerRef = 0;
 }

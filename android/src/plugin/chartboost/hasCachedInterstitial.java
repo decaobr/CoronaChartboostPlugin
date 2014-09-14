@@ -7,6 +7,8 @@ The MIT License (MIT)
 
 Copyright (c) 2014 Gremlin Interactive Limited
 
+Updated for Chartboost SDK 5.x by Ingemar Bergmark, Swipeware (www.swipeware.com)
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -109,7 +111,15 @@ public class hasCachedInterstitial implements com.naef.jnlua.NamedJavaFunction
         try
         {
             // The named location
-            final String namedLocation = luaState.checkString( 1 );
+            String adLocation = null;
+
+            if ( luaState.isString(1) )
+            {
+                adLocation = luaState.checkString( 1 );
+            }
+
+            final String namedLocation = adLocation;
+            
 
             // Corona Activity
             CoronaActivity coronaActivity = null;
@@ -129,20 +139,19 @@ public class hasCachedInterstitial implements com.naef.jnlua.NamedJavaFunction
                     boolean result = false;
 
                     // If the chartboost instance is valid - could be invalid by calling this method before init invokes
-                    if ( chartboostHelper.chartboostInstance != null )
+                    // Check the result
+                    if ( namedLocation != null )
                     {
-                        // Check the result
-                        if ( namedLocation != null )
-                        {
-                            result = chartboostHelper.chartboostInstance.hasCachedInterstitial( namedLocation );
-                        }
-                        else
-                        {
-                            result = chartboostHelper.chartboostInstance.hasCachedInterstitial( "DefaultInterstitial" );
-                        }
+                        result = Chartboost.hasInterstitial( namedLocation );
                     }
+                    else
+                    {
+                        result = Chartboost.hasInterstitial( "Game Over" );
+                    }
+                    
                     // Push the result
                     L.pushBoolean( result );
+
                     // Return the result
                     return result;
                 }
