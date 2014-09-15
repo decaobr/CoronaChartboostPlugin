@@ -134,13 +134,12 @@ public class hasCachedRewardedVideo implements com.naef.jnlua.NamedJavaFunction
             FutureTask<Boolean> isCachedResult = new FutureTask<Boolean>(new Callable<Boolean>() {
                 @Override
                 public Boolean call() throws Exception {
-                    // Is more apps cached?
                     boolean result = false;
 
                     if ( namedLocation != null ) {
                         result = Chartboost.hasRewardedVideo( namedLocation );
                     } else {
-                        result = Chartboost.hasRewardedVideo( CBLocation.LOCATION_GAMEOVER );
+                        result = Chartboost.hasRewardedVideo( CBLocation.LOCATION_DEFAULT );
                     }
 
                     // Push the result

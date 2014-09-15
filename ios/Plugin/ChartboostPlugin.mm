@@ -444,11 +444,11 @@ int chartboostLibrary::cache( lua_State *L )
         
     } else {
         if ( strcmp( adType, "moreApps" ) == 0 ) {
-            [Chartboost cacheMoreApps:CBLocationHomeScreen];
+            [Chartboost cacheMoreApps:CBLocationDefault];
         } else if ( strcmp( adType, "rewardedVideo" ) == 0 ) {
-            [Chartboost cacheRewardedVideo:CBLocationGameOver];
+            [Chartboost cacheRewardedVideo:CBLocationDefault];
         } else {
-            [Chartboost cacheInterstitial:CBLocationGameOver];
+            [Chartboost cacheInterstitial:CBLocationDefault];
         }
     }
 	return 0;
@@ -485,11 +485,11 @@ int chartboostLibrary::show( lua_State *L )
         
     } else {
         if ( strcmp( adType, "moreApps" ) == 0 ) {
-            [Chartboost showMoreApps:CBLocationHomeScreen];
+            [Chartboost showMoreApps:CBLocationDefault];
         } else if ( strcmp( adType, "rewardedVideo" ) == 0 ) {
-            [Chartboost showRewardedVideo:CBLocationGameOver];
+            [Chartboost showRewardedVideo:CBLocationDefault];
         } else {
-            [Chartboost showInterstitial:CBLocationGameOver];
+            [Chartboost showInterstitial:CBLocationDefault];
         }
     }
 	return 0;
@@ -503,7 +503,7 @@ int chartboostLibrary::hasCachedInterstitial( lua_State *L )
     if ( namedLocation != NULL ) {
         lua_pushboolean( L, [Chartboost hasInterstitial:[NSString stringWithUTF8String:namedLocation]] );
     } else {
-        lua_pushboolean( L, [Chartboost hasInterstitial:CBLocationGameOver] );
+        lua_pushboolean( L, [Chartboost hasInterstitial:CBLocationDefault] );
     }
 
     return 1;
@@ -517,7 +517,7 @@ int chartboostLibrary::hasCachedRewardedVideo( lua_State *L )
     if ( namedLocation != NULL ) {
         lua_pushboolean( L, [Chartboost hasRewardedVideo:[NSString stringWithUTF8String:namedLocation]] );
     } else {
-        lua_pushboolean( L, [Chartboost hasRewardedVideo:CBLocationGameOver] );
+        lua_pushboolean( L, [Chartboost hasRewardedVideo:CBLocationDefault] );
     }
 
     return 1;
@@ -531,7 +531,7 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     if ( namedLocation != NULL ) {
         lua_pushboolean( L, [Chartboost hasMoreApps:[NSString stringWithUTF8String:namedLocation]] );
     } else {
-        lua_pushboolean( L, [Chartboost hasMoreApps:CBLocationHomeScreen] );
+        lua_pushboolean( L, [Chartboost hasMoreApps:CBLocationDefault] );
     }
 
     return 1;

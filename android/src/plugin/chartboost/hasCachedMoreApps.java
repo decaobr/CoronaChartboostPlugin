@@ -134,13 +134,12 @@ public class hasCachedMoreApps implements com.naef.jnlua.NamedJavaFunction
             FutureTask<Boolean> isCachedResult = new FutureTask<Boolean>(new Callable<Boolean>() {
                 @Override
                 public Boolean call() throws Exception {
-                    // Is more apps cached?
                     boolean result = false;
 
                     if ( namedLocation != null ) {
                         result = Chartboost.hasMoreApps( namedLocation );
                     } else {
-                        result = Chartboost.hasMoreApps(CBLocation.LOCATION_HOME_SCREEN);
+                        result = Chartboost.hasMoreApps(CBLocation.LOCATION_DEFAULT);
                     }
 
                     // Push the result

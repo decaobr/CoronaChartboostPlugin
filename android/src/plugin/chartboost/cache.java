@@ -162,11 +162,11 @@ public class cache implements com.naef.jnlua.NamedJavaFunction
 
                     } else {
                         if ( theAdType.equalsIgnoreCase("moreApps")) {
-                            Chartboost.cacheMoreApps(CBLocation.LOCATION_HOME_SCREEN);
+                            Chartboost.cacheMoreApps(CBLocation.LOCATION_DEFAULT);
                         } else if (theAdType.equalsIgnoreCase("rewardedVideo")) {
-                            Chartboost.cacheRewardedVideo(CBLocation.LOCATION_GAMEOVER);
+                            Chartboost.cacheRewardedVideo(CBLocation.LOCATION_DEFAULT);
                         } else {
-                            Chartboost.cacheInterstitial(CBLocation.LOCATION_GAMEOVER);
+                            Chartboost.cacheInterstitial(CBLocation.LOCATION_DEFAULT);
                         }
                     }
                 }

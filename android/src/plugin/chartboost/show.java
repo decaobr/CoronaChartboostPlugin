@@ -137,7 +137,6 @@ public class show implements com.naef.jnlua.NamedJavaFunction
             {
                 public void run()
                 {
-Log.d("Test Corona", "show");
                     if ( theNamedLocation != null ) {
                         if ( theAdType.equalsIgnoreCase( "moreApps" ) ) {
                             Chartboost.showMoreApps( theNamedLocation );
@@ -149,11 +148,11 @@ Log.d("Test Corona", "show");
 
                     } else {
                         if ( theAdType.equalsIgnoreCase( "moreApps" ) ) {
-                            Chartboost.showMoreApps( CBLocation.LOCATION_HOME_SCREEN );
+                            Chartboost.showMoreApps( CBLocation.LOCATION_DEFAULT );
                         } else if ( theAdType.equalsIgnoreCase( "rewardedVideo" ) ) {
-                            Chartboost.showRewardedVideo( CBLocation.LOCATION_GAMEOVER );
+                            Chartboost.showRewardedVideo( CBLocation.LOCATION_DEFAULT );
                         } else {
-                            Chartboost.showInterstitial( CBLocation.LOCATION_GAMEOVER );
+                            Chartboost.showInterstitial( CBLocation.LOCATION_DEFAULT );
                         }
                     }
                 }

@@ -135,17 +135,14 @@ public class hasCachedInterstitial implements com.naef.jnlua.NamedJavaFunction
             FutureTask<Boolean> isCachedResult = new FutureTask<Boolean>(new Callable<Boolean>() {
                 @Override
                 public Boolean call() throws Exception {
-                    // Is more apps cached?
                     boolean result = false;
 
-                    // If the chartboost instance is valid - could be invalid by calling this method before init invokes
-                    // Check the result
                     if ( namedLocation != null ) {
                         result = Chartboost.hasInterstitial( namedLocation );
                     } else {
-                        result = Chartboost.hasInterstitial( CBLocation.LOCATION_GAMEOVER );
+                        result = Chartboost.hasInterstitial( CBLocation.LOCATION_DEFAULT );
                     }
-Log.d("test Corona", "hasCachedInterstitial " + result );
+
                     // Push the result
                     L.pushBoolean( result );
 
