@@ -140,15 +140,12 @@ public class hasCachedInterstitial implements com.naef.jnlua.NamedJavaFunction
 
                     // If the chartboost instance is valid - could be invalid by calling this method before init invokes
                     // Check the result
-                    if ( namedLocation != null )
-                    {
+                    if ( namedLocation != null ) {
                         result = Chartboost.hasInterstitial( namedLocation );
+                    } else {
+                        result = Chartboost.hasInterstitial( CBLocation.LOCATION_GAMEOVER );
                     }
-                    else
-                    {
-                        result = Chartboost.hasInterstitial( "Game Over" );
-                    }
-                    
+Log.d("test Corona", "hasCachedInterstitial " + result );
                     // Push the result
                     L.pushBoolean( result );
 

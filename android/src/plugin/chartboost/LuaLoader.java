@@ -99,8 +99,8 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener
         {
             new getPluginVersion(),
             new init(),
-            //new cache(),
-            //new config(),
+            new cache(),
+            new config(),
             new show(),
             new startSession(),
             new hasCachedInterstitial(),

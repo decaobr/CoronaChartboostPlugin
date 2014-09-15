@@ -111,8 +111,14 @@ public class hasCachedRewardedVideo implements com.naef.jnlua.NamedJavaFunction
     {
         try
         {
-            // The named location
-            final String namedLocation = luaState.checkString( 1 );
+            String adLocation = null;
+
+            if ( luaState.isString(1) )
+            {
+                adLocation = luaState.checkString( 1 );
+            }
+
+            final String namedLocation = adLocation;
 
             // Corona Activity
             CoronaActivity coronaActivity = null;
@@ -131,13 +137,10 @@ public class hasCachedRewardedVideo implements com.naef.jnlua.NamedJavaFunction
                     // Is more apps cached?
                     boolean result = false;
 
-                    if ( namedLocation != null )
-                    {
+                    if ( namedLocation != null ) {
                         result = Chartboost.hasRewardedVideo( namedLocation );
-                    }
-                    else
-                    {
-                        result = Chartboost.hasRewardedVideo( "Game Over" );
+                    } else {
+                        result = Chartboost.hasRewardedVideo( CBLocation.LOCATION_GAMEOVER );
                     }
 
                     // Push the result

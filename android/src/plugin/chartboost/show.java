@@ -96,54 +96,6 @@ public class show implements com.naef.jnlua.NamedJavaFunction
         return "show";
     }
 
-    // Pointer to the lua state
-    LuaState theLuaState = null;
-
-    // Save Moment Event task
-    private static class showLuaCallBackListenerTask implements CoronaRuntimeTask 
-    {
-        private int fLuaListenerRegistryId;
-        private String fPhase = null;
-
-        public showLuaCallBackListenerTask( int luaListenerRegistryId, String phase ) 
-        {
-            fLuaListenerRegistryId = luaListenerRegistryId;
-            fPhase = phase;
-        }
-
-        @Override
-        public void executeUsing( CoronaRuntime runtime )
-        {
-            try 
-            {
-                // Fetch the Corona runtime's Lua state.
-                final LuaState L = runtime.getLuaState();
-
-                // Dispatch the lua callback
-                if ( CoronaLua.REFNIL != fLuaListenerRegistryId ) 
-                {
-                    // Setup the event
-                    CoronaLua.newEvent( L, "chartboost" );
-
-                    // Status
-                    L.pushString( fPhase );
-                    L.setField( -2, "phase" );
-
-                    // Dispatch the event
-                    CoronaLua.dispatchEvent( L, fLuaListenerRegistryId, 0 );
-                }
-            }
-            catch ( Exception ex ) 
-            {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    
-    // Our lua callback listener
-    private int listenerRef;
-
     /**
      * This method is called when the Lua function is called.
      * <p>
@@ -180,41 +132,28 @@ public class show implements com.naef.jnlua.NamedJavaFunction
             // The location
             final String theNamedLocation = namedLocation;
 
-            // Corona runtime task dispatcher
-            final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( luaState );
-
             // Create a new runnable object to invoke our activity
             Runnable runnableActivity = new Runnable()
             {
                 public void run()
                 {
-                    // If the chartboost instance is valid - could be invalid by calling this method before init invokes
-				    // If the ad type isn't null
-                    if ( theAdType != null )
-                    {
-                        // If we want to display an interstitial
-                        if ( theAdType.equalsIgnoreCase( "interstitial" ) )
-                        {
-                            // If the user wants to show a cached nameded location
-                            if ( theNamedLocation != null )
-                            {
-                                Chartboost.showInterstitial( theNamedLocation );
-                            }
-                            else
-                            {
-                                Chartboost.showInterstitial( "Game Over" );
-                            }
+Log.d("Test Corona", "show");
+                    if ( theNamedLocation != null ) {
+                        if ( theAdType.equalsIgnoreCase( "moreApps" ) ) {
+                            Chartboost.showMoreApps( theNamedLocation );
+                        } else if ( theAdType.equalsIgnoreCase( "rewardedVideo" ) ) {
+                            Chartboost.showRewardedVideo( theNamedLocation );
+                        } else {
+                            Chartboost.showInterstitial( theNamedLocation );
                         }
-                        else if ( theAdType.equalsIgnoreCase( "moreApps" ) )
-                        {
-                            if ( theNamedLocation != null )
-                            {
-                                Chartboost.showMoreApps( theNamedLocation );
-                            }
-                            else
-                            {
-                                Chartboost.showMoreApps( "Game Over" );
-                            }
+
+                    } else {
+                        if ( theAdType.equalsIgnoreCase( "moreApps" ) ) {
+                            Chartboost.showMoreApps( CBLocation.LOCATION_HOME_SCREEN );
+                        } else if ( theAdType.equalsIgnoreCase( "rewardedVideo" ) ) {
+                            Chartboost.showRewardedVideo( CBLocation.LOCATION_GAMEOVER );
+                        } else {
+                            Chartboost.showInterstitial( CBLocation.LOCATION_GAMEOVER );
                         }
                     }
                 }

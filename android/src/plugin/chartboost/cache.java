@@ -96,12 +96,6 @@ public class cache implements com.naef.jnlua.NamedJavaFunction
         return "cache";
     }
 
-    // Pointer to the lua state
-    LuaState theLuaState = null;
-
-    // Our lua callback listener
-    private int listenerRef;
-
     /**
      * This method is called when the Lua function is called.
      * <p>
@@ -115,15 +109,33 @@ public class cache implements com.naef.jnlua.NamedJavaFunction
     {
         try
         {
-            // The named location
+            String adType = null;
             String namedLocation = null;
             
-            // Get the named location
             if ( luaState.isString( 1 ) )
             {
+                adType = luaState.checkString( 1 );
+            }
+
+            if ( luaState.isString( 2 ) )
+            {
+                namedLocation = luaState.checkString( 2 );
+            }
+
+            //backwards compatibility with Gremlin Interactive's v1.x library
+            if (adType == null) { // no parameters. assume interstitial
+                adType = "interstitial";
+            } else if (
+                (! adType.equalsIgnoreCase( "interstitial" )) &&
+                (! adType.equalsIgnoreCase( "rewardedVideo" )) &&
+                (! adType.equalsIgnoreCase( "moreApps" ))
+            ) { // assume interstitial with named location as first parameter
+                adType = "interstitial";
                 namedLocation = luaState.checkString( 1 );
             }
 
+            // The ad type
+            final String theAdType = adType;
             // The location
             final String theNamedLocation = namedLocation;
 
@@ -134,39 +146,28 @@ public class cache implements com.naef.jnlua.NamedJavaFunction
                 coronaActivity = CoronaEnvironment.getCoronaActivity();
             }
             
-            // Corona runtime task dispatcher
-            final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( luaState );
-
             // Create a new runnable object to invoke our activity
             Runnable runnableActivity = new Runnable()
             {
                 public void run()
                 {
-                    // If the chartboost instance is valid - could be invalid by calling this method before init invokes
-                    if ( chartboostHelper.chartboostInstance != null )
-                    {
-                        // If namedLocation isn't null, then cache the location for the interstial.
-                        if ( theNamedLocation != null )
-                        {
-                            // If the user requests to cache the more apps page
-                            if ( theNamedLocation.equalsIgnoreCase( "moreApps" ) )
-                            {
-                                chartboostHelper.chartboostInstance.cacheMoreApps();
-                            }
-                            // User wants to cache a custom location
-                            else
-                            {
-                                chartboostHelper.chartboostInstance.cacheInterstitial( theNamedLocation );
-                            }
+                    if ( theNamedLocation != null ) {
+                        if ( theAdType.equalsIgnoreCase("moreApps")) {
+                            Chartboost.cacheMoreApps(theNamedLocation);
+                        } else if (theAdType.equalsIgnoreCase("rewardedVideo")) {
+                            Chartboost.cacheRewardedVideo(theNamedLocation);
+                        } else {
+                            Chartboost.cacheInterstitial(theNamedLocation);
                         }
-                        // If namedLocation is null, then cache the default interstitial
-                        else
-                        {
-                            chartboostHelper.chartboostInstance.cacheInterstitial( "DefaultInterstitial" );
+
+                    } else {
+                        if ( theAdType.equalsIgnoreCase("moreApps")) {
+                            Chartboost.cacheMoreApps(CBLocation.LOCATION_HOME_SCREEN);
+                        } else if (theAdType.equalsIgnoreCase("rewardedVideo")) {
+                            Chartboost.cacheRewardedVideo(CBLocation.LOCATION_GAMEOVER);
+                        } else {
+                            Chartboost.cacheInterstitial(CBLocation.LOCATION_GAMEOVER);
                         }
-                        
-                        // We have requested a cache action
-                        chartboostHelper.cbHasRequestedCache = true;
                     }
                 }
             };

@@ -112,13 +112,6 @@ public class init implements com.naef.jnlua.NamedJavaFunction
     {
         try
         {
-            // This requires an options table with the following params
-            /*
-                appID
-                appSignature
-                listener
-            */
-
             // Get the corona application context
             Context coronaApplication = CoronaEnvironment.getApplicationContext();
 
@@ -167,7 +160,6 @@ public class init implements com.naef.jnlua.NamedJavaFunction
                 }
                 luaState.pop( 1 );
             }
-            // No options table passed in
             else
             {
                 System.out.println( "Error: chartboost.init(), options table expected, got " + luaState.typeName( -1 ) );
@@ -185,9 +177,6 @@ public class init implements com.naef.jnlua.NamedJavaFunction
                 coronaActivity = CoronaEnvironment.getCoronaActivity();
             }
 
-            // Corona runtime task dispatcher
-            //final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( luaState );
-
             // Set variables to pass to chartboost (need to be final as they are accesed from within an inner class)
             final String cbAppID = appID;
             final String cbAppSignature = appSignature;
@@ -204,29 +193,11 @@ public class init implements com.naef.jnlua.NamedJavaFunction
                     Chartboost.setShouldRequestInterstitialsInFirstSession(true);
                     Chartboost.setShouldDisplayLoadingViewForMoreApps(true);
                     Chartboost.setShouldPrefetchVideoContent(true);
+                    Chartboost.setImpressionsUseActivities(true); // must be true for OpenGL apps (i.e. all Corona apps)
                     Chartboost.setAutoCacheAds(true);
                     Chartboost.setDelegate(chartboostDelegate);
                     Chartboost.onCreate(activity);
-
-                    // If the chartboost instance hasn't already being created
-                    //if ( chartboostHelper.chartboostInstance == null )
-                    //{
-                        // Init Chartboost
-                        //chartboostHelper.chartboostInstance = Chartboost.sharedChartboost();
-
-                        // Create the Chartboost delegate
-                        //ChartboostDelegate chartboostDelegate = new chartboostDelegate( activity, "CBT" );
-                        //chartboostHelper.chartboostInstance.onCreate( activity, cbAppID, cbAppSignature, chartboostDelegate );
-                        //chartboostHelper.chartboostInstance.onStart( activity );
-                        // For OpenGL
-                        //TODO CBPreferences.getInstance().setImpressionsUseActivities( true );
-
-                        // Create the task
-                        //LuaCallBackListenerTask task = new LuaCallBackListenerTask( listenerRef, "" );
-
-                        // Send the task to the Corona runtime asynchronously.
-                        //dispatcher.send( task ); 
-                    //}                 
+                    Chartboost.onStart(activity);
                 }
             };
 
