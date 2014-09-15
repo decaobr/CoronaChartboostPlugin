@@ -125,8 +125,7 @@ public class chartboostDelegate extends ChartboostDelegate
                 final LuaState L = runtime.getLuaState();
 
                 // Dispatch the lua callback
-                if ( CoronaLua.REFNIL != fLuaListenerRegistryId ) 
-                {
+                if ( CoronaLua.REFNIL != fLuaListenerRegistryId ) {
                     // Setup the event
                     CoronaLua.newEvent( L, "chartboost" );
 
@@ -139,15 +138,13 @@ public class chartboostDelegate extends ChartboostDelegate
                     L.setField( -2, "phase" );
 
                     // Result
-                    if ( fResult != null && ! fResult.isEmpty() )
-                    {
+                    if ( fResult != null && ! fResult.isEmpty() ) {
                         L.pushString( fResult );
                         L.setField( -2, "result" );
                     }
 
                     // Location
-                    if ( fLocation != null )
-                    {
+                    if ( fLocation != null ) {
                         L.pushString( fLocation );
                         L.setField( -2, "location" );
                     }
@@ -162,18 +159,7 @@ public class chartboostDelegate extends ChartboostDelegate
             }
         }
     }
-
-    // // Vars
-    // private String TAG;
-    // private Context ctx;
     
-    // // Delegate
-    // public chartboostDelegate( Context cx, String tag )
-    // {
-    //     TAG = tag;
-    //     ctx = cx;
-    // }
-
     // Interstitals
     @Override
     public boolean shouldRequestInterstitial( String location )
@@ -188,7 +174,7 @@ public class chartboostDelegate extends ChartboostDelegate
         final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
 
         // Create the task
-        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "interstitial", "willDisplay" );
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "interstitial", "willDisplay", "", location );
 
         // Send the task to the Corona runtime asynchronously.
         dispatcher.send( task );
@@ -216,7 +202,7 @@ public class chartboostDelegate extends ChartboostDelegate
         final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
 
         // Create the task
-        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "interstitial", "load", "failed" );
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "interstitial", "load", "failed", location );
 
         // Send the task to the Corona runtime asynchronously.
         dispatcher.send( task );
@@ -235,7 +221,7 @@ public class chartboostDelegate extends ChartboostDelegate
         final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
 
         // Create the task
-        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "interstitial", "closed" );
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "interstitial", "closed" , "", location);
 
         // Send the task to the Corona runtime asynchronously.
         dispatcher.send( task );
@@ -248,7 +234,7 @@ public class chartboostDelegate extends ChartboostDelegate
         final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
 
         // Create the task
-        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "interstitial", "clicked" );
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "interstitial", "clicked" , "", location);
 
         // Send the task to the Corona runtime asynchronously.
         dispatcher.send( task );
@@ -261,12 +247,115 @@ public class chartboostDelegate extends ChartboostDelegate
         final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
 
         // Create the task
-        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "interstitial", "didDisplay" );
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "interstitial", "didDisplay", "", location );
 
         // Send the task to the Corona runtime asynchronously.
         dispatcher.send( task );
     }
 
+    // Rewarded Video
+    @Override
+    public boolean shouldDisplayRewardedVideo( String location )
+    {
+        // Corona runtime task dispatcher
+        final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
+
+        // Create the task
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "rewardedVideo", "willDisplay", "", location );
+
+        // Send the task to the Corona runtime asynchronously.
+        dispatcher.send( task );
+
+        return true;
+    }
+
+    @Override
+    public void didCacheRewardedVideo( String location )
+    {
+        // Corona runtime task dispatcher
+        final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
+
+        // Create the task
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "rewardedVideo", "cached", "", location );
+
+        // Send the task to the Corona runtime asynchronously.
+        dispatcher.send( task );
+    }
+
+    @Override
+    public void didFailToLoadRewardedVideo( String location, CBImpressionError error )
+    {
+        // Corona runtime task dispatcher
+        final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
+
+        // Create the task
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "rewardedVideo", "load", "failed", location );
+
+        // Send the task to the Corona runtime asynchronously.
+        dispatcher.send( task );
+    }
+
+    @Override
+    public void didDismissRewardedVideo( String location )
+    {
+        // No need to use. Called on Close/Click
+    }
+
+    @Override
+    public void didCloseRewardedVideo( String location )
+    {
+        // Corona runtime task dispatcher
+        final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
+
+        // Create the task
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "rewardedVideo", "closed" , "", location);
+
+        // Send the task to the Corona runtime asynchronously.
+        dispatcher.send( task );
+    }
+
+    @Override
+    public void didClickRewardedVideo( String location )
+    {
+        // Corona runtime task dispatcher
+        final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
+
+        // Create the task
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "rewardedVideo", "clicked" , "", location);
+
+        // Send the task to the Corona runtime asynchronously.
+        dispatcher.send( task );
+    }
+
+    @Override
+    public void didDisplayRewardedVideo( String location )
+    {
+        // Corona runtime task dispatcher
+        final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
+
+        // Create the task
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "rewardedVideo", "didDisplay", "", location );
+
+        // Send the task to the Corona runtime asynchronously.
+        dispatcher.send( task );
+    }
+
+    @Override
+    public void didCompleteRewardedVideo(String location, int reward)
+    {
+        // Corona runtime task dispatcher
+        final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
+
+        String rewardStr = Integer.toString(reward);
+        
+        // Create the task
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "rewardedVideo", "reward", rewardStr, location );
+
+        // Send the task to the Corona runtime asynchronously.
+        dispatcher.send( task );        
+    }
+
+    // More Apps
     @Override
     public boolean shouldRequestMoreApps( String location )
     {
@@ -280,7 +369,7 @@ public class chartboostDelegate extends ChartboostDelegate
         final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
 
         // Create the task
-        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "moreApps", "willDisplay" );
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "moreApps", "willDisplay", "", location);
 
         // Send the task to the Corona runtime asynchronously.
         dispatcher.send( task );
@@ -295,7 +384,7 @@ public class chartboostDelegate extends ChartboostDelegate
         final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
 
         // Create the task
-        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "moreApps", "load", "failed" );
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "moreApps", "load", "failed", location );
 
         // Send the task to the Corona runtime asynchronously.
         dispatcher.send( task );        
@@ -308,7 +397,7 @@ public class chartboostDelegate extends ChartboostDelegate
         final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
 
         // Create the task
-        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "moreApps", "cached" );
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "moreApps", "cached", "", location );
 
         // Send the task to the Corona runtime asynchronously.
         dispatcher.send( task );        
@@ -327,7 +416,7 @@ public class chartboostDelegate extends ChartboostDelegate
         final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
 
         // Create the task
-        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "moreApps", "closed" );
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "moreApps", "closed", "", location );
 
         // Send the task to the Corona runtime asynchronously.
         dispatcher.send( task );
@@ -340,7 +429,7 @@ public class chartboostDelegate extends ChartboostDelegate
         final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
 
         // Create the task
-        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "moreApps", "willDisplay" );
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "moreApps", "clicked", "", location );
 
         // Send the task to the Corona runtime asynchronously.
         dispatcher.send( task );
@@ -353,7 +442,7 @@ public class chartboostDelegate extends ChartboostDelegate
         final CoronaRuntimeTaskDispatcher dispatcher = new CoronaRuntimeTaskDispatcher( chartboostHelper.luaState );
 
         // Create the task
-        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "moreApps", "didDisplay" );
+        LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, "moreApps", "didDisplay", "", location );
 
         // Send the task to the Corona runtime asynchronously.
         dispatcher.send( task );

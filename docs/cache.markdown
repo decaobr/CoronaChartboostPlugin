@@ -21,9 +21,10 @@ This function can take two argument.
 
 *String.* The name of the cached location.  
   
-If no location is given, a default location will be used. For interstitals and rewarded videos a location of `"Game Over"` is used. For More Apps a location of `"Home Screen"` is used.
+If no location is given, the legacy default location will be used.  
 
-(Although you can specify any string you like, Chartboost recommends to use one of their predefined locations to help keep eCPM's as high as possible. See below.)
+Although you can specify any string you like, Chartboost recommends to use one of their predefined locations to help keep eCPM's as high as possible.  
+For a list of predefined locations, see below.
 
 #### Example
 
@@ -41,6 +42,7 @@ chartboost.cache( "moreApps" )
 #### Predefined locations
 | Location | Description|
 |:---|:---|
+|"Default"|Legacy default location| 
 |"Startup"|Initial startup of game| 
 |"Home Screen"| Home screen the player first sees|
 |"Main Menu" | Menu that provides game options|

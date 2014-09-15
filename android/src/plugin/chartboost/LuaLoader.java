@@ -41,7 +41,7 @@ import java.lang.*;
 
 // Android Imports
 import android.content.Context;
- 
+
 // JNLua imports
 import com.naef.jnlua.LuaState;
 import com.naef.jnlua.JavaFunction;
@@ -113,7 +113,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener
         // Returning 1 indicates that the Lua require() function will return the above Lua library.
         return 1;
     }
-    
+
     /**
      * Called after the Corona runtime has been created and just before executing the "main.lua" file.
      * <p>
@@ -152,6 +152,12 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener
     @Override
     public void onSuspended( CoronaRuntime runtime )
     {
+        CoronaActivity coronaActivity = null;
+
+        if ( CoronaEnvironment.getCoronaActivity() != null ) {
+            coronaActivity = CoronaEnvironment.getCoronaActivity();
+            Chartboost.onPause(coronaActivity);
+        }
     }
  
     /**
@@ -163,6 +169,12 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener
     @Override
     public void onResumed( CoronaRuntime runtime )
     {
+        CoronaActivity coronaActivity = null;
+
+        if ( CoronaEnvironment.getCoronaActivity() != null ) {
+            coronaActivity = CoronaEnvironment.getCoronaActivity();
+            Chartboost.onResume(coronaActivity);
+        }
     }
  
     /**
@@ -178,5 +190,11 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener
     @Override
     public void onExiting( CoronaRuntime runtime )
     {
+        CoronaActivity coronaActivity = null;
+        
+        if ( CoronaEnvironment.getCoronaActivity() != null ) {
+            coronaActivity = CoronaEnvironment.getCoronaActivity();
+            Chartboost.onDestroy(coronaActivity);
+        }
     }
 }

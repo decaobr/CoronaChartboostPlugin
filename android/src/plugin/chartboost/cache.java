@@ -112,19 +112,18 @@ public class cache implements com.naef.jnlua.NamedJavaFunction
             String adType = null;
             String namedLocation = null;
             
-            if ( luaState.isString( 1 ) )
-            {
+            if ( luaState.isString( 1 ) ) {
                 adType = luaState.checkString( 1 );
             }
 
-            if ( luaState.isString( 2 ) )
-            {
+            if ( luaState.isString( 2 ) ) {
                 namedLocation = luaState.checkString( 2 );
             }
 
             //backwards compatibility with Gremlin Interactive's v1.x library
             if (adType == null) { // no parameters. assume interstitial
                 adType = "interstitial";
+
             } else if (
                 (! adType.equalsIgnoreCase( "interstitial" )) &&
                 (! adType.equalsIgnoreCase( "rewardedVideo" )) &&
@@ -134,15 +133,12 @@ public class cache implements com.naef.jnlua.NamedJavaFunction
                 namedLocation = luaState.checkString( 1 );
             }
 
-            // The ad type
             final String theAdType = adType;
-            // The location
             final String theNamedLocation = namedLocation;
 
             // Corona Activity
             CoronaActivity coronaActivity = null;
-            if ( CoronaEnvironment.getCoronaActivity() != null )
-            {
+            if ( CoronaEnvironment.getCoronaActivity() != null ) {
                 coronaActivity = CoronaEnvironment.getCoronaActivity();
             }
             
@@ -173,8 +169,7 @@ public class cache implements com.naef.jnlua.NamedJavaFunction
             };
 
             // Run the activity on the uiThread
-            if ( coronaActivity != null )
-            {
+            if ( coronaActivity != null ) {
                 coronaActivity.runOnUiThread( runnableActivity );
             }
         }

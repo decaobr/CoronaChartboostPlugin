@@ -23,9 +23,10 @@ This function can take two arguments:
 
 *String.* The name of the advertisement location. 
 
-If no location is given, a default location will be used. For static interstitals, video interstitials and rewarded videos a location of `"Game Over"` is used. For More Apps a location of `"Home Screen"` is used.
+If no location is given, the legacy default location will be used.
 
-(Although you can specify any string you like, Chartboost recommends to use one of their predefined locations to help keep eCPM's as high as possible. See [chartboost.cache()](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/cache.markdown) for more info)
+Although you can specify any string you like, Chartboost recommends to use one of their predefined locations to help keep eCPM's as high as possible.  
+See [chartboost.cache()](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/cache.markdown) for more info.
 
 
 #### Example

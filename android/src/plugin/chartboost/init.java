@@ -169,11 +169,9 @@ public class init implements com.naef.jnlua.NamedJavaFunction
             chartboostHelper.luaState = luaState;
             chartboostHelper.listenerRef = listenerRef;
 
-
             // Corona Activity
             CoronaActivity coronaActivity = null;
-            if ( CoronaEnvironment.getCoronaActivity() != null )
-            {
+            if ( CoronaEnvironment.getCoronaActivity() != null ) {
                 coronaActivity = CoronaEnvironment.getCoronaActivity();
             }
 
@@ -202,8 +200,7 @@ public class init implements com.naef.jnlua.NamedJavaFunction
             };
 
             // Run the activity on the uiThread
-            if ( coronaActivity != null )
-            {
+            if ( coronaActivity != null ) {
                 coronaActivity.runOnUiThread( runnableActivity );
             }
         }
