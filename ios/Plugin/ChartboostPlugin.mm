@@ -1020,6 +1020,9 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
+    
+    lua_pushstring( self.L, [[[NSNumber numberWithInt:reward] stringValue] UTF8String]);
+	lua_setfield( self.L, -2, "result" );
 	
 	// Dispatch the event
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
