@@ -526,7 +526,14 @@ int chartboostLibrary::hasCachedRewardedVideo( lua_State *L )
 // [Lua] chartboost.hasCachedMoreApps()
 int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 {
-    lua_pushboolean( L, [Chartboost hasMoreApps:CBLocationHomeScreen] );
+	const char *namedLocation = lua_tostring( L, 1 );
+	
+    if ( namedLocation != NULL ) {
+        lua_pushboolean( L, [Chartboost hasMoreApps:[NSString stringWithUTF8String:namedLocation]] );
+    } else {
+        lua_pushboolean( L, [Chartboost hasMoreApps:CBLocationHomeScreen] );
+    }
+
     return 1;
 }
 	
