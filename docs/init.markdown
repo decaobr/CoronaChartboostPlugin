@@ -81,7 +81,7 @@ event.name: "chartboost"
         event.phase: "reward" 
             -- Sent when a video has been viewed, and a reward should be given
             event.location: namedLocation (string)
-            event.result: reward id (number)
+            event.result: reward id (string)
 
     event.type: "moreApps"
         event.phase: "willDisplay"
