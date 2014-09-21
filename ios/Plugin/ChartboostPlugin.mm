@@ -114,8 +114,10 @@ class chartboostLibrary
 
 // This corresponds to the name of the library, e.g. [Lua] require "plugin.library"
 const char chartboostLibrary::kName[] = "plugin.chartboost";
+
 // Plugin version
-const char *pluginVersion = "2.0";
+const char *chartboostPluginVersion = "2.0.1 (SDK 5.0.2)";
+
 // Pointer to the Chartboost Delegate
 ChartboostDelegate *chartBoostDelegate;
 
@@ -203,7 +205,7 @@ bool chartboostLibrary::Initialize( void *platformContext )
 // [Lua] chartboost.getPluginVersion()
 int chartboostLibrary::getPluginVersion( lua_State *L )
 {
-	lua_pushstring( L, pluginVersion );
+	lua_pushstring( L, chartboostPluginVersion );
 	return 1;
 }
 
@@ -281,15 +283,15 @@ int chartboostLibrary::init( lua_State *L )
 	// If the app id isn't null
 	if ( appId != NULL && appSignature != NULL)
 	{
+        [Chartboost setShouldPrefetchVideoContent:YES];
+        [Chartboost setShouldRequestInterstitialsInFirstSession:YES];
+        [Chartboost setShouldDisplayLoadingViewForMoreApps:chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps];
+
 		// Begin a user session. Must not be dependent on user actions or any prior network requests.
 		// Must be called every time your app becomes active.
 		[Chartboost startWithAppId:[NSString stringWithUTF8String:appId]
                     appSignature  :[NSString stringWithUTF8String:appSignature]
                     delegate      :chartBoostDelegate];
-        
-        [Chartboost setShouldPrefetchVideoContent:YES];
-        [Chartboost setShouldRequestInterstitialsInFirstSession:YES];
-        [Chartboost setShouldDisplayLoadingViewForMoreApps:chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps];
 	}
 
 	return 0;
