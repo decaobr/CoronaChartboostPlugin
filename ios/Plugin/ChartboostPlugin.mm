@@ -285,7 +285,7 @@ int chartboostLibrary::init( lua_State *L )
 	{
         [Chartboost setShouldPrefetchVideoContent:YES];
         [Chartboost setShouldRequestInterstitialsInFirstSession:YES];
-        [Chartboost setShouldDisplayLoadingViewForMoreApps:chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps];
+        [Chartboost setShouldDisplayLoadingViewForMoreApps:chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps ? YES : NO];
 
 		// Begin a user session. Must not be dependent on user actions or any prior network requests.
 		// Must be called every time your app becomes active.
@@ -400,7 +400,7 @@ int chartboostLibrary::config( lua_State *L )
     chartBoostDelegate.cbShouldDisplayRewardedVideos = shouldDisplayRewardedVideos;
 
 	chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps = shouldDisplayLoadingViewForMoreApps;
-    [Chartboost setShouldDisplayLoadingViewForMoreApps:chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps];
+    [Chartboost setShouldDisplayLoadingViewForMoreApps:chartBoostDelegate.cbShouldDisplayLoadingViewForMoreApps ? YES : NO];
 
 	return 0;
 }
@@ -503,9 +503,9 @@ int chartboostLibrary::hasCachedInterstitial( lua_State *L )
 	const char *namedLocation = lua_tostring( L, 1 );
 	
     if ( namedLocation != NULL ) {
-        lua_pushboolean( L, [Chartboost hasInterstitial:[NSString stringWithUTF8String:namedLocation]] );
+        lua_pushboolean( L, [Chartboost hasInterstitial:[NSString stringWithUTF8String:namedLocation]] ? true : false );
     } else {
-        lua_pushboolean( L, [Chartboost hasInterstitial:CBLocationDefault] );
+        lua_pushboolean( L, [Chartboost hasInterstitial:CBLocationDefault] ? true : false);
     }
 
     return 1;
@@ -517,9 +517,9 @@ int chartboostLibrary::hasCachedRewardedVideo( lua_State *L )
 	const char *namedLocation = lua_tostring( L, 1 );
 	
     if ( namedLocation != NULL ) {
-        lua_pushboolean( L, [Chartboost hasRewardedVideo:[NSString stringWithUTF8String:namedLocation]] );
+        lua_pushboolean( L, [Chartboost hasRewardedVideo:[NSString stringWithUTF8String:namedLocation]] ? true : false );
     } else {
-        lua_pushboolean( L, [Chartboost hasRewardedVideo:CBLocationDefault] );
+        lua_pushboolean( L, [Chartboost hasRewardedVideo:CBLocationDefault] ? true : false );
     }
 
     return 1;
@@ -531,9 +531,9 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	const char *namedLocation = lua_tostring( L, 1 );
 	
     if ( namedLocation != NULL ) {
-        lua_pushboolean( L, [Chartboost hasMoreApps:[NSString stringWithUTF8String:namedLocation]] );
+        lua_pushboolean( L, [Chartboost hasMoreApps:[NSString stringWithUTF8String:namedLocation]] ? true : false );
     } else {
-        lua_pushboolean( L, [Chartboost hasMoreApps:CBLocationDefault] );
+        lua_pushboolean( L, [Chartboost hasMoreApps:CBLocationDefault] ? true : false);
     }
 
     return 1;
