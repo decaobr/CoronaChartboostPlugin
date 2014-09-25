@@ -27,87 +27,88 @@ Event diagram:
 ```
 event.name: "chartboost"
     event.type: "interstitial"
-        event.phase: "willDisplay"
+        event.response: "willDisplay"
             -- sent before an ad is displayed
             event.location: namedLocation (string)
             
-        event.phase: "didDisplay"
+        event.response: "didDisplay"
             -- sent when an ad is displayed
             event.location: namedLocation (string)
             
-        event.phase: "closed"
+        event.response: "closed"
             -- sent when an ad is closed
             event.location: namedLocation (string)
             
-        event.phase: "clicked"
+        event.response: "clicked"
             -- sent when an ad is clicked
             event.location: namedLocation (string)       
             
-        event.phase: "cached"
+        event.response: "cached"
             -- sent when an ad is cached
             event.location: namedLocation (string)
             
-        event.phase: "load"                    
+        event.response: "failed"                    
             -- sent when an ad has failed to load
             event.location: namedLocation (string)
-            event.result: "failed"
+            event.info: detailed error info (string)
 
     event.type: "rewardedVideo"
-        event.phase: "willDisplay"            
+        event.response: "willDisplay"            
             -- sent before an ad is displayed
             event.location: namedLocation (string)
             
-        event.phase: "didDisplay"
+        event.response: "didDisplay"
             -- sent when an ad is displayed
             event.location: namedLocation (string)
             
-        event.phase: "closed"
+        event.response: "closed"
             -- sent when an ad is closed
             event.location: namedLocation (string)
             
-        event.phase: "clicked"
+        event.response: "clicked"
             -- sent when an ad is clicked
             event.location: namedLocation (string)
             
-        event.phase: "cached"
+        event.response: "cached"
             -- sent when an ad is cached
             event.location: namedLocation (string)
             
-        event.phase: "load"
+        event.response: "failed"
             -- sent when an ad has failed to load
             event.location: namedLocation (string)
-            event.result: "failed"
+            event.info: detailed error info (string)
             
-        event.phase: "reward" 
+        event.response: "reward" 
             -- Sent when a video has been viewed, and a reward should be given
             event.location: namedLocation (string)
-            event.result: reward id (string)
+            event.info: reward amount (number in string)
+            (Reward amount is specified in the Chartboost dashboard)
 
     event.type: "moreApps"
-        event.phase: "willDisplay"
+        event.response: "willDisplay"
             -- sent before More Apps is displayed
             event.location: namedLocation (string)
             
-        event.phase: "didDisplay"
+        event.response: "didDisplay"
             -- sent when More Apps is displayed
             event.location: namedLocation (string)
             
-        event.phase: "closed"
+        event.response: "closed"
             -- sent when More Apps is closed
             event.location: namedLocation (string)
             
-        event.phase: "clicked"
+        event.response: "clicked"
             -- sent when an app in More Apps is clicked
             event.location: namedLocation (string)
             
-        event.phase: "cached"
+        event.response: "cached"
             -- sent when More Apps is cached
             event.location: namedLocation (string)
             
-        event.phase: "load"
+        event.response: "failed"
             -- sent when More Apps has failed to load
             event.location: namedLocation (string)
-            event.result: "failed"
+            event.info: detailed error info (string)
 
 ```
 
