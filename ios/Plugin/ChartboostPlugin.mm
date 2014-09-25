@@ -578,8 +578,11 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_pushstring( self.L, "interstitial" );
 	lua_setfield( self.L, -2, CoronaEventTypeKey() );
 
-	lua_pushstring( self.L, "willDisplay" );
+	lua_pushstring( self.L, "willDisplay" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
+
+	lua_pushstring( self.L, "willDisplay" );
+	lua_setfield( self.L, -2, "response" );
 
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
@@ -604,8 +607,11 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_pushstring( self.L, "interstitial" );
 	lua_setfield( self.L, -2, CoronaEventTypeKey() );
 	
-	lua_pushstring( self.L, "didDisplay" );
+	lua_pushstring( self.L, "didDisplay" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
+
+	lua_pushstring( self.L, "didDisplay" );
+	lua_setfield( self.L, -2, "response" );
     
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
@@ -639,8 +645,11 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_pushstring( self.L, "interstitial" );
 	lua_setfield( self.L, -2, CoronaEventTypeKey() );
 
-	lua_pushstring( self.L, "closed" );
+	lua_pushstring( self.L, "closed" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
+    
+	lua_pushstring( self.L, "closed" );
+	lua_setfield( self.L, -2, "response" );
     
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
@@ -657,8 +666,11 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_pushstring( self.L, "interstitial" );
 	lua_setfield( self.L, -2, CoronaEventTypeKey() );
 
-	lua_pushstring( self.L, "clicked" );
+	lua_pushstring( self.L, "clicked" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
+
+	lua_pushstring( self.L, "clicked" );
+	lua_setfield( self.L, -2, "response" );
 
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
@@ -687,8 +699,11 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     lua_pushstring( self.L, "interstitial" );
     lua_setfield( self.L, -2, CoronaEventTypeKey() );
 
-    lua_pushstring( self.L, "cached" );
+    lua_pushstring( self.L, "cached" );  // 'phase' deprecated. use 'response' instead.
     lua_setfield( self.L, -2, "phase" );
+    
+    lua_pushstring( self.L, "cached" );
+    lua_setfield( self.L, -2, "response" );
     
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
@@ -713,14 +728,17 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     lua_pushstring( self.L, "interstitial" );
     lua_setfield( self.L, -2, CoronaEventTypeKey() );
 
-    lua_pushstring( self.L, "load" );
+    lua_pushstring( self.L, "failed" );  // 'phase' deprecated. use 'response' instead.
     lua_setfield( self.L, -2, "phase" );
+    
+    lua_pushstring( self.L, "failed" );
+    lua_setfield( self.L, -2, "response" );
     
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
     
-    lua_pushstring( self.L, "failed" );
-    lua_setfield( self.L, -2, "result" );
+    lua_pushstring( self.L, [[NSString stringWithFormat:@"Failed to load interstitial (Error: %d)", error] UTF8String]);
+    lua_setfield( self.L, -2, "info" );
     
     // Dispatch the event
     Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
@@ -740,11 +758,12 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
 
-	// Push the phase string
-	lua_pushstring( self.L, "willDisplay" );
+	lua_pushstring( self.L, "willDisplay" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
 	
-	// Dispatch the event
+	lua_pushstring( self.L, "willDisplay" );
+	lua_setfield( self.L, -2, "response" );
+	
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
 
 	return self.cbShouldDisplayMoreApps;
@@ -761,11 +780,12 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
 
-	// Push the phase string
-	lua_pushstring( self.L, "didDisplay" );
+	lua_pushstring( self.L, "didDisplay" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
 	
-	// Dispatch the event
+	lua_pushstring( self.L, "didDisplay" );
+	lua_setfield( self.L, -2, "response" );
+	
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
 }
 
@@ -797,11 +817,12 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
 
-	// Push the phase string
-	lua_pushstring( self.L, "closed" );
+	lua_pushstring( self.L, "closed" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
 	
-	// Dispatch the event
+	lua_pushstring( self.L, "closed" );
+	lua_setfield( self.L, -2, "response" );
+	
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
 }
 
@@ -816,11 +837,12 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
 
-	// Push the phase string
-	lua_pushstring( self.L, "clicked" );
+	lua_pushstring( self.L, "clicked" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
 	
-	// Dispatch the event
+	lua_pushstring( self.L, "clicked" );
+	lua_setfield( self.L, -2, "response" );
+	
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
 }
 
@@ -842,16 +864,17 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_pushstring( self.L, "moreApps" );
 	lua_setfield( self.L, -2, CoronaEventTypeKey() );
 
-	// Push the phase string
-	lua_pushstring( self.L, "load" );
+	lua_pushstring( self.L, "failed" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
+	
+	lua_pushstring( self.L, "failed" );
+	lua_setfield( self.L, -2, "response" );
 	
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
 
-	// Push the result
-	lua_pushstring( self.L, "failed" );
-	lua_setfield( self.L, -2, "result" );
+    lua_pushstring( self.L, [[NSString stringWithFormat:@"Failed to load moreApps (Error: %d)", error] UTF8String]);
+	lua_setfield( self.L, -2, "info" );
 	
 	// Dispatch the event
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
@@ -868,11 +891,12 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
 
-    // Push the phase string
-    lua_pushstring( self.L, "cached" );
+    lua_pushstring( self.L, "cached" );  // 'phase' deprecated. use 'response' instead.
     lua_setfield( self.L, -2, "phase" );
     
-    // Dispatch the event
+    lua_pushstring( self.L, "cached" );
+    lua_setfield( self.L, -2, "response" );
+    
     Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
 }
 
@@ -889,11 +913,12 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
 
-	// Push the phase string
-	lua_pushstring( self.L, "willDisplay" );
+	lua_pushstring( self.L, "willDisplay" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
 	
-	// Dispatch the event
+	lua_pushstring( self.L, "willDisplay" );
+	lua_setfield( self.L, -2, "response" );
+	
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
 
 	return self.cbShouldDisplayRewardedVideos;
@@ -911,11 +936,12 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
 	
-	// Push the phase string
-	lua_pushstring( self.L, "didDisplay" );
+	lua_pushstring( self.L, "didDisplay" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
 	
-	// Dispatch the event
+	lua_pushstring( self.L, "didDisplay" );
+	lua_setfield( self.L, -2, "response" );
+	
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
 }
 
@@ -931,11 +957,12 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
     
-    // Push the phase string
-    lua_pushstring( self.L, "cached" );
+    lua_pushstring( self.L, "cached" );  // 'phase' deprecated. use 'response' instead.
     lua_setfield( self.L, -2, "phase" );
     
-    // Dispatch the event
+    lua_pushstring( self.L, "cached" );
+    lua_setfield( self.L, -2, "response" );
+    
     Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
 }
 
@@ -949,18 +976,18 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_pushstring( self.L, "rewardedVideo" );
 	lua_setfield( self.L, -2, CoronaEventTypeKey() );
 
-	// Push the phase string
-	lua_pushstring( self.L, "load" );
+	lua_pushstring( self.L, "failed" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
+
+	lua_pushstring( self.L, "failed" );
+	lua_setfield( self.L, -2, "response" );
 
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
 	
-	// Push the result
-	lua_pushstring( self.L, "failed" );
-	lua_setfield( self.L, -2, "result" );
+    lua_pushstring( self.L, [[NSString stringWithFormat:@"Failed to load rewarded video (Error: %d)", error] UTF8String]);
+	lua_setfield( self.L, -2, "info" );
 	
-	// Dispatch the event
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
 }
 
@@ -980,8 +1007,11 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_pushstring( self.L, "rewardedVideo" );
 	lua_setfield( self.L, -2, CoronaEventTypeKey() );
 
-	lua_pushstring( self.L, "closed" );
+	lua_pushstring( self.L, "closed" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
+    
+	lua_pushstring( self.L, "closed" );
+	lua_setfield( self.L, -2, "response" );
     
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
@@ -998,8 +1028,11 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_pushstring( self.L, "rewardedVideo" );
 	lua_setfield( self.L, -2, CoronaEventTypeKey() );
 
-	lua_pushstring( self.L, "clicked" );
+	lua_pushstring( self.L, "clicked" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
+
+	lua_pushstring( self.L, "clicked" );
+	lua_setfield( self.L, -2, "response" );
 
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
@@ -1017,14 +1050,17 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_pushstring( self.L, "rewardedVideo" );
 	lua_setfield( self.L, -2, CoronaEventTypeKey() );
 
-	lua_pushstring( self.L, "reward" );
+	lua_pushstring( self.L, "reward" );  // 'phase' deprecated. use 'response' instead.
 	lua_setfield( self.L, -2, "phase" );
+
+	lua_pushstring( self.L, "reward" );
+	lua_setfield( self.L, -2, "response" );
 
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
     
     lua_pushstring( self.L, [[[NSNumber numberWithInt:reward] stringValue] UTF8String]);
-	lua_setfield( self.L, -2, "result" );
+	lua_setfield( self.L, -2, "info" );
 	
 	// Dispatch the event
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
