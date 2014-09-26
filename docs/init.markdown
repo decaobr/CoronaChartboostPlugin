@@ -111,7 +111,23 @@ event.name: "chartboost"
             event.info: detailed error info (string)
 
 ```
+  
+#### Error codes (given in event.info)
 
+```
+0    Unknown internal error
+1    Network is currently unavailable
+2    Too many requests are pending for that location
+3    Interstitial loaded with wrong orientation
+4    Interstitial disabled, first session
+5    Network request failed
+6    No ad received (no inventory / no campaigns)
+7    Session not started
+8    User manually cancelled the impression
+9    No location detected
+
+```
+  
 #### Example
 
 ```
