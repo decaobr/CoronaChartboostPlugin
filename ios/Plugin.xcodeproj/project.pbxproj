@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		30133CC2191A415A00328863 /* ChartboostPlugin.mm in Sources */ = {isa = PBXBuildFile; fileRef = 30133CC1191A415A00328863 /* ChartboostPlugin.mm */; };
-		37B0189F19B9DC120091A4FF /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B0189E19B9DC120091A4FF /* Chartboost.framework */; };
+		378FDB5619DD1A51009CF9B4 /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B0189E19B9DC120091A4FF /* Chartboost.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,7 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37B0189F19B9DC120091A4FF /* Chartboost.framework in Frameworks */,
+				378FDB5619DD1A51009CF9B4 /* Chartboost.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

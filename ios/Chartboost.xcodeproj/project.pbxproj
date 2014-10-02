@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		300599DE18C21F6100D299F0 /* libchartboostLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4E253E2166DE7C800DCDC2C /* libchartboostLibrary.a */; };
+		300599DE18C21F6100D299F0 /* libChartboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4E253E2166DE7C800DCDC2C /* libChartboost.a */; };
 		305BE7CF18BD05B9001E66E2 /* libplayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 305BE7CE18BD05B9001E66E2 /* libplayer.a */; };
 		30B1EFBD1950F9C70026F85F /* libChartboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30133CC8191A46C900328863 /* libChartboost.a */; };
 		30BAFBD81950F57E00695266 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BAFBD71950F57E00695266 /* CoreData.framework */; };
@@ -81,7 +81,7 @@
 		A447B6651666FD02009EA762 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainWindow.xib; path = CoronaEnterprise/Corona/ios/resource/MainWindow.xib; sourceTree = SOURCE_ROOT; };
 		A447B6691666FD43009EA762 /* CoronaSDK3rdPartyLicenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CoronaSDK3rdPartyLicenses.txt; path = CoronaEnterprise/Corona/shared/resource/CoronaSDK3rdPartyLicenses.txt; sourceTree = SOURCE_ROOT; };
 		A447B67116670028009EA762 /* libplayer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplayer.a; path = CoronaEnterprise/Corona/ios/lib/libplayer.a; sourceTree = SOURCE_ROOT; };
-		A447B824166856F3009EA762 /* main.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = main.lua; path = ../Corona/main.lua; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.lua; };
+		A447B824166856F3009EA762 /* main.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = main.lua; path = ../Corona/main.lua; sourceTree = SOURCE_ROOT; };
 		A484111915114F700074BD57 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A484111D15114F700074BD57 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A484111F15114F700074BD57 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -129,7 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30B1EFBD1950F9C70026F85F /* libChartboost.a in Frameworks */,
-				300599DE18C21F6100D299F0 /* libchartboostLibrary.a in Frameworks */,
+				300599DE18C21F6100D299F0 /* libChartboost.a in Frameworks */,
 				305BE7CF18BD05B9001E66E2 /* libplayer.a in Frameworks */,
 				30F364AC18454B03007DCF90 /* CoreVideo.framework in Frameworks */,
 				30BAFBD81950F57E00695266 /* CoreData.framework in Frameworks */,
@@ -296,7 +296,7 @@
 		A4E253DB166DE7C800DCDC2C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A4E253E2166DE7C800DCDC2C /* libchartboostLibrary.a */,
+				A4E253E2166DE7C800DCDC2C /* libChartboost.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -336,6 +336,11 @@
 				TargetAttributes = {
 					A484111815114F700074BD57 = {
 						DevelopmentTeam = NFDL2U9ZPC;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -363,10 +368,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		A4E253E2166DE7C800DCDC2C /* libchartboostLibrary.a */ = {
+		A4E253E2166DE7C800DCDC2C /* libChartboost.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libchartboostLibrary.a;
+			path = libChartboost.a;
 			remoteRef = A4E253E1166DE7C800DCDC2C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -485,12 +490,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv7,
-					armv7s,
-				);
-				"ARCHS[sdk=iphoneos*]" = armv7;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ARCHS = armv7;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -504,11 +504,11 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/CoronaEnterprise/Corona/shared/include/Corona ${SRCROOT}/CoronaEnterprise/Corona/shared/include/lua ${SRCROOT}/CoronaEnterprise/Corona/ios/include/Corona";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = armv7;
 			};
 			name = Debug;
 		};
@@ -516,30 +516,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"ARCHS[sdk=iphoneos*]" = armv7;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ARCHS = armv7;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/CoronaEnterprise/Corona/shared/include/Corona ${SRCROOT}/CoronaEnterprise/Corona/shared/include/lua ${SRCROOT}/CoronaEnterprise/Corona/ios/include/Corona";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = armv7;
 			};
 			name = Release;
 		};
 		A484114315114F700074BD57 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = armv7;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -559,11 +556,9 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SEPARATE_STRIP = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = "non-global";
-				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -571,9 +566,7 @@
 		A484114415114F700074BD57 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = armv7;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -593,11 +586,9 @@
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
 				SEPARATE_STRIP = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = "non-global";
-				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

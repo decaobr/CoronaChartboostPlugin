@@ -47,6 +47,9 @@ THE SOFTWARE.
 
 // Chartboost
 #import <Chartboost/Chartboost.h>
+#import <Chartboost/CBNewsfeed.h>
+#import <CommonCrypto/CommonDigest.h>
+#import <AdSupport/AdSupport.h>
 
 // The ChartboostDelegate delegate
 @interface ChartboostDelegate: UIViewController <ChartboostDelegate>
@@ -591,7 +594,7 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
     
     // Otherwise return YES to display the interstitial
-    return self.cbShouldDisplayInterstitial;
+    return self.cbShouldDisplayInterstitial ? YES : NO;
 }
 
 /* 
@@ -766,7 +769,7 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
 
-	return self.cbShouldDisplayMoreApps;
+	return self.cbShouldDisplayMoreApps ? YES : NO;
 }
 
 /// Called when an more apps page has been displayed.
@@ -905,6 +908,12 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 // Called before a rewarded video will be displayed on the screen.
 - (BOOL)shouldDisplayRewardedVideo:(CBLocation)location
 {
+	return self.cbShouldDisplayRewardedVideos ? YES : NO;
+}
+
+// Called before a video has been displayed on the screen.
+- (void)willDisplayVideo:(CBLocation)location
+{
 	// Create the event
 	Corona::Lua::NewEvent( self.L, "chartboost" );
 	lua_pushstring( self.L, "rewardedVideo" );
@@ -920,10 +929,7 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_setfield( self.L, -2, "response" );
 	
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
-
-	return self.cbShouldDisplayRewardedVideos;
 }
-
 
 // Called after a rewarded video has been displayed on the screen.
 - (void)didDisplayRewardedVideo:(CBLocation)location
