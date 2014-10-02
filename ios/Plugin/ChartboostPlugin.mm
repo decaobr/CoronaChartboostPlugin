@@ -119,7 +119,7 @@ class chartboostLibrary
 const char chartboostLibrary::kName[] = "plugin.chartboost";
 
 // Plugin version
-const char *chartboostPluginVersion = "2.0.1 (SDK 5.0.2)";
+const char *chartboostPluginVersion = "2.0.2 (SDK 5.0.3)";
 
 // Pointer to the Chartboost Delegate
 ChartboostDelegate *chartBoostDelegate;
