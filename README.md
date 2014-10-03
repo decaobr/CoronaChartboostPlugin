@@ -4,8 +4,9 @@ The Chartboost plugin for Corona SDK allows you to show static interstitials, vi
 
 Currently uses Chartboost SDK 5.0.3 (Oct. 1, 2014).  
 Tested to be fully compatible with iOS 8.
-  
-#####You can find pre-compiled binaries in the "binaries" folder.  
+
+**Enterprise users:**  
+You can find pre-compiled binaries in the "enterprise-binaries" folder.  
 
 
 
