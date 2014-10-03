@@ -908,12 +908,6 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 // Called before a rewarded video will be displayed on the screen.
 - (BOOL)shouldDisplayRewardedVideo:(CBLocation)location
 {
-	return self.cbShouldDisplayRewardedVideos ? YES : NO;
-}
-
-// Called before a video has been displayed on the screen.
-- (void)willDisplayVideo:(CBLocation)location
-{
 	// Create the event
 	Corona::Lua::NewEvent( self.L, "chartboost" );
 	lua_pushstring( self.L, "rewardedVideo" );
@@ -929,6 +923,14 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 	lua_setfield( self.L, -2, "response" );
 	
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
+
+	return self.cbShouldDisplayRewardedVideos ? YES : NO;
+}
+
+// Called before a video (rewarded or interstitial) has been displayed on the screen.
+- (void)willDisplayVideo:(CBLocation)location
+{
+    // NOP since there's no way to determine if it's a rewarded video or not
 }
 
 // Called after a rewarded video has been displayed on the screen.
