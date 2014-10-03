@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		30133CC2191A415A00328863 /* ChartboostPlugin.mm in Sources */ = {isa = PBXBuildFile; fileRef = 30133CC1191A415A00328863 /* ChartboostPlugin.mm */; };
-		378FDB5619DD1A51009CF9B4 /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B0189E19B9DC120091A4FF /* Chartboost.framework */; };
+		37CEB17719DE633D002FF676 /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CEB17619DE633D002FF676 /* Chartboost.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,7 +26,7 @@
 /* Begin PBXFileReference section */
 		30133CC0191A415A00328863 /* ChartboostPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartboostPlugin.h; path = Plugin/ChartboostPlugin.h; sourceTree = "<group>"; };
 		30133CC1191A415A00328863 /* ChartboostPlugin.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ChartboostPlugin.mm; path = Plugin/ChartboostPlugin.mm; sourceTree = "<group>"; };
-		37B0189E19B9DC120091A4FF /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
+		37CEB17619DE633D002FF676 /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
 		A4E253B6166D6FB300DCDC2C /* libChartboost.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libChartboost.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -35,21 +35,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				378FDB5619DD1A51009CF9B4 /* Chartboost.framework in Frameworks */,
+				37CEB17719DE633D002FF676 /* Chartboost.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		37B0189D19B9DBF10091A4FF /* Chartboost */ = {
-			isa = PBXGroup;
-			children = (
-				37B0189E19B9DC120091A4FF /* Chartboost.framework */,
-			);
-			name = Chartboost;
-			sourceTree = "<group>";
-		};
 		A447B609165D72A6009EA762 /* Plugin Library */ = {
 			isa = PBXGroup;
 			children = (
@@ -62,7 +54,7 @@
 		A484110E15114F700074BD57 = {
 			isa = PBXGroup;
 			children = (
-				37B0189D19B9DBF10091A4FF /* Chartboost */,
+				37CEB17619DE633D002FF676 /* Chartboost.framework */,
 				A447B609165D72A6009EA762 /* Plugin Library */,
 				A484111A15114F700074BD57 /* Products */,
 			);
@@ -223,13 +215,9 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Chartboost",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/CoronaEnterprise/Corona/shared/include/Corona ${SRCROOT}/CoronaEnterprise/Corona/shared/include/lua ${SRCROOT}/CoronaEnterprise/Corona/ios/include/Corona $(SRCROO)/Chartboost";
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/CoronaEnterprise/Corona/shared/include/Corona ${SRCROOT}/CoronaEnterprise/Corona/shared/include/lua ${SRCROOT}/CoronaEnterprise/Corona/ios/include/Corona";
 			};
 			name = Debug;
 		};
@@ -245,13 +233,9 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Chartboost",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/CoronaEnterprise/Corona/shared/include/Corona ${SRCROOT}/CoronaEnterprise/Corona/shared/include/lua ${SRCROOT}/CoronaEnterprise/Corona/ios/include/Corona $(SRCROO)/Chartboost";
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/CoronaEnterprise/Corona/shared/include/Corona ${SRCROOT}/CoronaEnterprise/Corona/shared/include/lua ${SRCROOT}/CoronaEnterprise/Corona/ios/include/Corona";
 			};
 			name = Release;
 		};
