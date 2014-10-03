@@ -42,7 +42,7 @@ import com.chartboost.sdk.*;
 public class chartboostHelper
 {
     // Plugin version
-    public static String pluginVersion = "2.0";
+    public static String pluginVersion = "2.0.2 (SDK 5.0.3)";
     // Lua
     public static LuaState luaState = null;
     public static int listenerRef = 0;
