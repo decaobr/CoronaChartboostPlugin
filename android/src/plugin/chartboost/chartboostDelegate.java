@@ -207,7 +207,7 @@ public class chartboostDelegate extends ChartboostDelegate
 
         // Create the task
         LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, 
-                    "interstitial", "failed", String.format("Failed to load interstitial (Error %d)", error), location );
+                    "interstitial", "failed", String.format("%s", error.name()), location );
 
         // Send the task to the Corona runtime asynchronously.
         dispatcher.send( task );
@@ -295,7 +295,7 @@ public class chartboostDelegate extends ChartboostDelegate
 
         // Create the task
         LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, 
-            "rewardedVideo", "failed", String.format("Failed to load rewarded video (Error %d)", error), location );
+            "rewardedVideo", "failed", String.format("%s", error.name()), location );
 
         // Send the task to the Corona runtime asynchronously.
         dispatcher.send( task );
@@ -391,7 +391,7 @@ public class chartboostDelegate extends ChartboostDelegate
 
         // Create the task
         LuaCallBackListenerTask task = new LuaCallBackListenerTask( chartboostHelper.listenerRef, 
-            "moreApps", "failed", String.format("Failed to load moreApps (Error %d)", error), location );
+            "moreApps", "failed", String.format("%s", error.name()), location );
 
         // Send the task to the Corona runtime asynchronously.
         dispatcher.send( task );        
