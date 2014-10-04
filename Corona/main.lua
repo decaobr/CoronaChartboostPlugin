@@ -33,39 +33,42 @@ widget.setTheme( "widget_theme_ios" )
 -- The ChartBoost listener function
 local function chartBoostListener( event )
     for k, v in pairs( event ) do
-        print( k, ":", v )
+        print( tostring(k).. "=".. tostring(v) )
     end
 end
 
--- Your ChartBoost app id
-local yourAppID = ""
--- Your ChartBoost app signature
-local yourAppSignature = ""
+-- Your Chartboost app id and signature for iOS
+local yourAppID        = "xxxx"
+local yourAppSignature = "yyyy"
 
--- Change the appid/sig for android (required by Chartboost)
+-- Change the appid/sig for Android
 if system.getInfo( "platformName" ) == "Android" then
-    yourAppID = ""
-    yourAppSignature = ""
+    yourAppID        = "xxxx"
+    yourAppSignature = "yyyy"
 end
 
-print( "plugin version is: ", chartboost.getPluginVersion() )
+print( "Chartboost plugin version: ".. chartboost.getPluginVersion() )
 
 -- Initialise ChartBoost
 chartboost.init {
-    appID        = yourAppID,
-    appSignature = yourAppSignature, 
-    listener     = chartBoostListener
-}
+        appID        = yourAppID,
+        appSignature = yourAppSignature, 
+        listener     = chartBoostListener
+    }
 
 -- Show Ad button
 local showAdButton = widget.newButton
 {
-    label = "Show Ad";
+    label = "Show Ad",
     onRelease = function( event )
-        print( "has cached Ad?:", chartboost.hasCachedInterstitial() )
-        print( "has cached more apps?:", chartboost.hasCachedMoreApps() )
+        print( "has cached Ad?: "..tostring( chartboost.hasCachedInterstitial() ))
+        print( "has cached more apps?: ".. tostring( chartboost.hasCachedMoreApps() ))
     
-        chartboost.show( "interstitial" )
+        if not chartboost.hasCachedInterstitial() then
+            native.showAlert( "No ad available", "Please cache an ad.", { "OK" })
+        else
+            chartboost.show( "interstitial" )
+        end
     end
 }
 showAdButton.x = display.contentCenterX
@@ -74,10 +77,10 @@ showAdButton.y = 150
 -- Cache Default Ad
 local cacheDefaultAd = widget.newButton
 {
-    label = "Cache Ad",
+    label = "Cache Default Ad",
     onRelease = function( event )
         chartboost.cache( "interstitial" )
-    end
+    end,
 }
 cacheDefaultAd.x = display.contentCenterX
 cacheDefaultAd.y = showAdButton.y + showAdButton.contentHeight + cacheDefaultAd.contentHeight * 0.5
@@ -96,7 +99,7 @@ cacheMoreAppsButton.y = cacheDefaultAd.y + cacheDefaultAd.contentHeight + cacheM
 -- Show More Apps button
 local showMoreAppsButton = widget.newButton
 {
-    label = "Show More Apps"
+    label = "Show More Apps",
     onRelease = function( event )
         chartboost.show( "moreApps" )
     end
@@ -104,11 +107,13 @@ local showMoreAppsButton = widget.newButton
 showMoreAppsButton.x = display.contentCenterX
 showMoreAppsButton.y = cacheMoreAppsButton.y + cacheMoreAppsButton.contentHeight + showMoreAppsButton.contentHeight * 0.5
 
-
+-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+-- IMPORTANT! YOU MUST CALL chartboost.startSession() IN YOUR OWN CODE AS BELOW TO ENSURE PROPER PLUGIN BEHAVIOR
+-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 local function systemEvent( event )
     local phase = event.phase
 
-    if event.type == 'applicationResume' then
+    if event.type == "applicationResume" then
         -- Start a ChartBoost session
         chartboost.startSession( yourAppID, yourAppSignature )
     end
@@ -116,4 +121,4 @@ local function systemEvent( event )
     return true
 end
 
-Runtime:addEventListener( 'system', systemEvent )
+Runtime:addEventListener( "system", systemEvent )
