@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		300599DE18C21F6100D299F0 /* libChartboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4E253E2166DE7C800DCDC2C /* libChartboost.a */; };
 		305BE7CF18BD05B9001E66E2 /* libplayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 305BE7CE18BD05B9001E66E2 /* libplayer.a */; };
-		30B1EFBD1950F9C70026F85F /* libChartboost.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30133CC8191A46C900328863 /* libChartboost.a */; };
 		30BAFBD81950F57E00695266 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BAFBD71950F57E00695266 /* CoreData.framework */; };
 		30F364AA18454AFE007DCF90 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A484112315114F700074BD57 /* GLKit.framework */; };
 		30F364AC18454B03007DCF90 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F364AB18454B03007DCF90 /* CoreVideo.framework */; };
+		37DC7DE319E0E37300FE822F /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37DC7DE219E0E37300FE822F /* Chartboost.framework */; };
 		A447B610165D72FB009EA762 /* AppCoronaDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = A447B60F165D72FB009EA762 /* AppCoronaDelegate.mm */; };
 		A447B6671666FD02009EA762 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A447B6641666FD02009EA762 /* MainWindow-iPad.xib */; };
 		A447B6681666FD02009EA762 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = A447B6651666FD02009EA762 /* MainWindow.xib */; };
@@ -45,7 +45,6 @@
 		A484118A15128D5D0074BD57 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A484117615128D5D0074BD57 /* SystemConfiguration.framework */; };
 		A48411CA15129F610074BD57 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A48411C915129F610074BD57 /* libsqlite3.dylib */; };
 		A498B81A16D70EFC0091A148 /* CoronaResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A498B81916D70EFC0091A148 /* CoronaResources.bundle */; };
-		A4C2446A1683F5F200C395D1 /* FacebookSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A4C244691683F5F200C395D1 /* FacebookSDKResources.bundle */; };
 		A4C2449A1683FA5300C395D1 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C244971683FA5300C395D1 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		A4C2449B1683FA5300C395D1 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C244981683FA5300C395D1 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		A4C2449C1683FA5300C395D1 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C244991683FA5300C395D1 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -70,11 +69,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3008588C191CF203001C93E3 /* libgremlin_Licensing.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgremlin_Licensing.a; path = GremlinLicensing/libgremlin_Licensing.a; sourceTree = "<group>"; };
-		30133CC8191A46C900328863 /* libChartboost.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libChartboost.a; path = Chartboost/libChartboost.a; sourceTree = "<group>"; };
 		305BE7CE18BD05B9001E66E2 /* libplayer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplayer.a; path = ../../../../../../../../../Applications/CoronaEnterprise/Corona/ios/lib/libplayer.a; sourceTree = "<group>"; };
 		30BAFBD71950F57E00695266 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		30F364AB18454B03007DCF90 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		37DC7DE219E0E37300FE822F /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
 		A447B60E165D72FB009EA762 /* AppCoronaDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCoronaDelegate.h; sourceTree = SOURCE_ROOT; };
 		A447B60F165D72FB009EA762 /* AppCoronaDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppCoronaDelegate.mm; sourceTree = SOURCE_ROOT; };
 		A447B6641666FD02009EA762 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "CoronaEnterprise/Corona/ios/resource/MainWindow-iPad.xib"; sourceTree = SOURCE_ROOT; };
@@ -82,7 +80,7 @@
 		A447B6691666FD43009EA762 /* CoronaSDK3rdPartyLicenses.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CoronaSDK3rdPartyLicenses.txt; path = CoronaEnterprise/Corona/shared/resource/CoronaSDK3rdPartyLicenses.txt; sourceTree = SOURCE_ROOT; };
 		A447B67116670028009EA762 /* libplayer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplayer.a; path = CoronaEnterprise/Corona/ios/lib/libplayer.a; sourceTree = SOURCE_ROOT; };
 		A447B824166856F3009EA762 /* main.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = main.lua; path = ../Corona/main.lua; sourceTree = SOURCE_ROOT; };
-		A484111915114F700074BD57 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A484111915114F700074BD57 /* ChartboostApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChartboostApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A484111D15114F700074BD57 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A484111F15114F700074BD57 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A484112115114F700074BD57 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -114,8 +112,6 @@
 		A484117615128D5D0074BD57 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A48411C915129F610074BD57 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		A498B81916D70EFC0091A148 /* CoronaResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = CoronaResources.bundle; path = CoronaEnterprise/Corona/ios/resource/CoronaResources.bundle; sourceTree = SOURCE_ROOT; };
-		A4A8C33B1683FA8200277A88 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = "CoronaEnterprise/Plugins/sdk-facebook/ios/FacebookSDK.framework"; sourceTree = SOURCE_ROOT; };
-		A4C244691683F5F200C395D1 /* FacebookSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKResources.bundle; path = "CoronaEnterprise/Plugins/sdk-facebook/ios/FacebookSDK.framework/Resources/FacebookSDKResources.bundle"; sourceTree = SOURCE_ROOT; };
 		A4C244971683FA5300C395D1 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		A4C244981683FA5300C395D1 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		A4C244991683FA5300C395D1 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -128,7 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30B1EFBD1950F9C70026F85F /* libChartboost.a in Frameworks */,
+				37DC7DE319E0E37300FE822F /* Chartboost.framework in Frameworks */,
 				300599DE18C21F6100D299F0 /* libChartboost.a in Frameworks */,
 				305BE7CF18BD05B9001E66E2 /* libplayer.a in Frameworks */,
 				30F364AC18454B03007DCF90 /* CoreVideo.framework in Frameworks */,
@@ -202,7 +198,6 @@
 				A484112715114F700074BD57 /* App */,
 				A447B823166856C7009EA762 /* Corona */,
 				A447B66F16670015009EA762 /* CoronaEnterprise */,
-				A4A8C3461683FB1900277A88 /* Facebook */,
 				A484111C15114F700074BD57 /* Frameworks */,
 				A484111A15114F700074BD57 /* Products */,
 			);
@@ -211,7 +206,7 @@
 		A484111A15114F700074BD57 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A484111915114F700074BD57 /* App.app */,
+				A484111915114F700074BD57 /* ChartboostApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -219,28 +214,26 @@
 		A484111C15114F700074BD57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				30BAFBD71950F57E00695266 /* CoreData.framework */,
-				3008588C191CF203001C93E3 /* libgremlin_Licensing.a */,
-				30133CC8191A46C900328863 /* libChartboost.a */,
-				305BE7CE18BD05B9001E66E2 /* libplayer.a */,
-				30F364AB18454B03007DCF90 /* CoreVideo.framework */,
 				A4C244971683FA5300C395D1 /* Accounts.framework */,
-				A4C244981683FA5300C395D1 /* AdSupport.framework */,
-				A4C244991683FA5300C395D1 /* Social.framework */,
 				A484116315128D5C0074BD57 /* AddressBook.framework */,
 				A484116415128D5C0074BD57 /* AddressBookUI.framework */,
+				A4C244981683FA5300C395D1 /* AdSupport.framework */,
 				A484116515128D5C0074BD57 /* AudioToolbox.framework */,
 				A484116615128D5C0074BD57 /* AVFoundation.framework */,
 				A484116715128D5C0074BD57 /* CFNetwork.framework */,
+				37DC7DE219E0E37300FE822F /* Chartboost.framework */,
+				30BAFBD71950F57E00695266 /* CoreData.framework */,
 				A484112115114F700074BD57 /* CoreGraphics.framework */,
 				A484116815128D5C0074BD57 /* CoreLocation.framework */,
 				A484116915128D5C0074BD57 /* CoreMedia.framework */,
 				A484116A15128D5C0074BD57 /* CoreMotion.framework */,
+				30F364AB18454B03007DCF90 /* CoreVideo.framework */,
 				A484111F15114F700074BD57 /* Foundation.framework */,
 				A484116B15128D5D0074BD57 /* GameKit.framework */,
 				A484112315114F700074BD57 /* GLKit.framework */,
 				A484116C15128D5D0074BD57 /* ImageIO.framework */,
 				A484116D15128D5D0074BD57 /* libobjc.dylib */,
+				305BE7CE18BD05B9001E66E2 /* libplayer.a */,
 				A48411C915129F610074BD57 /* libsqlite3.dylib */,
 				A484116E15128D5D0074BD57 /* MapKit.framework */,
 				A484116F15128D5D0074BD57 /* MediaPlayer.framework */,
@@ -250,6 +243,7 @@
 				A484112515114F700074BD57 /* OpenGLES.framework */,
 				A484117315128D5D0074BD57 /* QuartzCore.framework */,
 				A484117415128D5D0074BD57 /* Security.framework */,
+				A4C244991683FA5300C395D1 /* Social.framework */,
 				A484117515128D5D0074BD57 /* StoreKit.framework */,
 				A484117615128D5D0074BD57 /* SystemConfiguration.framework */,
 				A4E2537E166AE3DC00DCDC2C /* Twitter.framework */,
@@ -284,15 +278,6 @@
 			path = CoronaSampleApp;
 			sourceTree = "<group>";
 		};
-		A4A8C3461683FB1900277A88 /* Facebook */ = {
-			isa = PBXGroup;
-			children = (
-				A4A8C33B1683FA8200277A88 /* FacebookSDK.framework */,
-				A4C244691683F5F200C395D1 /* FacebookSDKResources.bundle */,
-			);
-			name = Facebook;
-			sourceTree = "<group>";
-		};
 		A4E253DB166DE7C800DCDC2C /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,9 +289,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A484111815114F700074BD57 /* App */ = {
+		A484111815114F700074BD57 /* ChartboostApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A484114215114F700074BD57 /* Build configuration list for PBXNativeTarget "App" */;
+			buildConfigurationList = A484114215114F700074BD57 /* Build configuration list for PBXNativeTarget "ChartboostApp" */;
 			buildPhases = (
 				A484111715114F700074BD57 /* Resources */,
 				A484111515114F700074BD57 /* Sources */,
@@ -321,9 +306,9 @@
 			dependencies = (
 				30C76F15178DA1ED00C1DF48 /* PBXTargetDependency */,
 			);
-			name = App;
+			name = ChartboostApp;
 			productName = CoronaSampleApp;
-			productReference = A484111915114F700074BD57 /* App.app */;
+			productReference = A484111915114F700074BD57 /* ChartboostApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -332,10 +317,10 @@
 		A484111015114F700074BD57 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0600;
 				TargetAttributes = {
 					A484111815114F700074BD57 = {
-						DevelopmentTeam = NFDL2U9ZPC;
+						DevelopmentTeam = LZP8HWV4LE;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 0;
@@ -362,7 +347,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				A484111815114F700074BD57 /* App */,
+				A484111815114F700074BD57 /* ChartboostApp */,
 			);
 		};
 /* End PBXProject section */
@@ -386,7 +371,6 @@
 				A447B6671666FD02009EA762 /* MainWindow-iPad.xib in Resources */,
 				A447B6681666FD02009EA762 /* MainWindow.xib in Resources */,
 				A447B66A1666FD43009EA762 /* CoronaSDK3rdPartyLicenses.txt in Resources */,
-				A4C2446A1683F5F200C395D1 /* FacebookSDKResources.bundle in Resources */,
 				A498B81A16D70EFC0091A148 /* CoronaResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,7 +475,16 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = armv7;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ingemar Bergmark (A6NDXD2SBB)";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -501,10 +494,16 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "7BB327AF-1D01-4A00-A953-1D19EECA9397";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/CoronaEnterprise/Corona/shared/include/Corona ${SRCROOT}/CoronaEnterprise/Corona/shared/include/lua ${SRCROOT}/CoronaEnterprise/Corona/ios/include/Corona";
@@ -517,14 +516,28 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = armv7;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ingemar Bergmark (A6NDXD2SBB)";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "7BB327AF-1D01-4A00-A953-1D19EECA9397";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/CoronaEnterprise/Corona/shared/include/Corona ${SRCROOT}/CoronaEnterprise/Corona/shared/include/lua ${SRCROOT}/CoronaEnterprise/Corona/ios/include/Corona";
@@ -536,18 +549,16 @@
 		A484114315114F700074BD57 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/CoronaEnterprise/Plugins/sdk-facebook/ios",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
-				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "App-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/CoronaEnterprise/Corona/ios/lib",
@@ -566,18 +577,16 @@
 		A484114415114F700074BD57 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/CoronaEnterprise/Plugins/sdk-facebook/ios",
+					"$(PROJECT_DIR)",
 				);
 				GCC_OPTIMIZATION_LEVEL = 2;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
-				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "App-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/CoronaEnterprise/Corona/ios/lib",
@@ -605,7 +614,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A484114215114F700074BD57 /* Build configuration list for PBXNativeTarget "App" */ = {
+		A484114215114F700074BD57 /* Build configuration list for PBXNativeTarget "ChartboostApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A484114315114F700074BD57 /* Debug */,
