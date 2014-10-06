@@ -1,4 +1,4 @@
-#### Overview
+## Overview
 
 Shows a Chartboost static interstitial, video interstitial, rewarded video or More Apps screen.  
 
@@ -29,7 +29,7 @@ Although you can specify any string you like, Chartboost recommends to use one o
 See [chartboost.cache()](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/cache.markdown) for more info.
 
 
-#### Example
+## Example
 
 ```
 -- Require the Chartboost library

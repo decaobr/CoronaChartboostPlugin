@@ -1,4 +1,4 @@
-#### Overview
+## Overview
 
 Returns whether a more apps page is cached or not.
 
@@ -8,11 +8,11 @@ Returns whether a more apps page is cached or not.
 chartboost.hasCachedMoreApps()
 ```
 
-#### Example
+## Example
 ```
 -- Require the Chartboost library
 local chartboost = require( "plugin.chartboost" )
 
--- Is the more apps page cached?
+-- Is the More Apps page cached?
 print( "Has cached interstitial: " .. chartboost.hasCachedMoreApps() );
 ```

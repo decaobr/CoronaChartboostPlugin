@@ -1,4 +1,4 @@
-#### Overview
+## Overview
 
 Get the version of this plugin.
 
@@ -12,7 +12,7 @@ chartboost.getPluginVersion()
 This function takes no arguments.  
 Returns a string with the plugin version.
 
-#### Example
+## Example
 
 ```
 -- Require the Chartboost library

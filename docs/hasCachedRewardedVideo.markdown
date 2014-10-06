@@ -1,4 +1,4 @@
-#### Overview
+## Overview
 
 Returns whether a Rewarded Video is cached or not.
 
@@ -8,11 +8,11 @@ Returns whether a Rewarded Video is cached or not.
 chartboost.hasCachedRewardedVideo()
 ```
 
-#### Example
+## Example
 ```
 -- Require the Chartboost library
 local chartboost = require( "plugin.chartboost" )
 
--- Is the rewarded video cached?
+-- Is the Rewarded Video cached?
 print( "Has cached rewarded video: " .. chartboost.hasCachedRewardedVideo() );
 ```

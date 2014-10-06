@@ -1,4 +1,4 @@
-#### Overview
+## Overview
 
 Returns whether an Ad is cached or not.
 
@@ -14,7 +14,7 @@ This function takes one or zero arguments.
 
 *String.* The named location of the Interstitial. If omitted, this will return whether or not the default Interstitial location is cached or not.
 
-#### Example
+## Example
 
 ```
 -- Require the Chartboost library

@@ -1,4 +1,4 @@
-#### Overview
+## Overview
 
 Initializes the Chartboost library. This function is required and must be executed before making other Chartboost calls such as `chartboost.show()`.
 
@@ -22,7 +22,8 @@ This function takes a single argument, `options`, which is a table that accepts 
 
 *Listener.* This function receives Chartboost events.
 
-Event diagram:
+## Listener events
+
 
 ```
 event.name: "chartboost"
@@ -128,7 +129,7 @@ event.name: "chartboost"
 
 ```
   
-#### Example
+## Example
 
 ```
 -- Require the Chartboost library

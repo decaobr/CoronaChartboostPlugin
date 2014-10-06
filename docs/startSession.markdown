@@ -1,8 +1,9 @@
-#### Overview
+## Overview
 
 Starts a Chartboost session after application resume.
 
-**Note:** You must call this method on every application resume event. See  "applicationResume" in the [Corona documentation](http://docs.coronalabs.com/api/event/system/type.html).
+**Note:**  
+You must call this method on every application resume event. See  "applicationResume" in the [Corona documentation](http://docs.coronalabs.com/api/event/system/type.html).
 
 ## Syntax
 
@@ -20,7 +21,7 @@ This function takes two arguments:
 
 *String.* Your Chartboost app signature. You can get your app signature from the [](https://www.chartboost.com)Chartboost website.
 
-#### Example
+## Example
 
 ```
 -- Require the Chartboost library

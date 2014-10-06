@@ -1,4 +1,4 @@
-#### Overview
+## Overview
 
 Caches a Chartboost interstitial, Rewarded Video or More Apps screen for instant loading of future display.
 
@@ -26,20 +26,20 @@ If no location is given, the legacy default location will be used.
 Although you can specify any string you like, Chartboost recommends to use one of their predefined locations to help keep eCPM's as high as possible.  
 For a list of predefined locations, see below.
 
-#### Example
+## Example
 
 ```
 -- Require the Chartboost library
 local chartboost = require( "plugin.chartboost" )
     
 -- Cache an interstitial
-chartboost.cache( "Startup" )
+chartboost.cache( "interstitial", "Startup" )
 
 -- Cache the more apps screen
 chartboost.cache( "moreApps" )
 ```
 
-#### Predefined locations
+## Predefined locations
 | Location | Description|
 |:---|:---|
 |"Default"|Legacy default location| 
