@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		30133CC2191A415A00328863 /* ChartboostPlugin.mm in Sources */ = {isa = PBXBuildFile; fileRef = 30133CC1191A415A00328863 /* ChartboostPlugin.mm */; };
-		37CEB17719DE633D002FF676 /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37CEB17619DE633D002FF676 /* Chartboost.framework */; };
+		372DBCD119EFD09200455B9F /* Chartboost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 372DBCD019EFD09200455B9F /* Chartboost.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,7 +26,8 @@
 /* Begin PBXFileReference section */
 		30133CC0191A415A00328863 /* ChartboostPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartboostPlugin.h; path = Plugin/ChartboostPlugin.h; sourceTree = "<group>"; };
 		30133CC1191A415A00328863 /* ChartboostPlugin.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ChartboostPlugin.mm; path = Plugin/ChartboostPlugin.mm; sourceTree = "<group>"; };
-		37CEB17619DE633D002FF676 /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
+		372DBCD019EFD09200455B9F /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
+		375D39EF19EFC02700ACD4C4 /* ChartboostDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ChartboostDelegate.h; path = Plugin/ChartboostDelegate.h; sourceTree = "<group>"; };
 		A4E253B6166D6FB300DCDC2C /* libChartboost.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libChartboost.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -35,7 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37CEB17719DE633D002FF676 /* Chartboost.framework in Frameworks */,
+				372DBCD119EFD09200455B9F /* Chartboost.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,6 +48,7 @@
 			children = (
 				30133CC0191A415A00328863 /* ChartboostPlugin.h */,
 				30133CC1191A415A00328863 /* ChartboostPlugin.mm */,
+				375D39EF19EFC02700ACD4C4 /* ChartboostDelegate.h */,
 			);
 			name = "Plugin Library";
 			sourceTree = "<group>";
@@ -54,7 +56,7 @@
 		A484110E15114F700074BD57 = {
 			isa = PBXGroup;
 			children = (
-				37CEB17619DE633D002FF676 /* Chartboost.framework */,
+				372DBCD019EFD09200455B9F /* Chartboost.framework */,
 				A447B609165D72A6009EA762 /* Plugin Library */,
 				A484111A15114F700074BD57 /* Products */,
 			);

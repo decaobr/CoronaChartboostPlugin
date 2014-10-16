@@ -50,24 +50,7 @@ THE SOFTWARE.
 #import <Chartboost/CBNewsfeed.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <AdSupport/AdSupport.h>
-
-// The ChartboostDelegate delegate
-@interface ChartboostDelegate: UIViewController <ChartboostDelegate>
-
-// Should we display the loading view for more apps?
-@property (nonatomic, assign) bool cbShouldDisplayLoadingViewForMoreApps;
-// Should we display more apps?
-@property (nonatomic, assign) bool cbShouldDisplayMoreApps;
-// Should we display rewarded videos?
-@property (nonatomic, assign) bool cbShouldDisplayRewardedVideos;
-// Should we display interstitials
-@property (nonatomic, assign) bool cbShouldDisplayInterstitial;
-
-// Reference to the current Lua listener function
-@property (nonatomic) Corona::Lua::Ref listenerRef;
-// Pointer to the current Lua state
-@property (nonatomic, assign) lua_State *L;
-@end
+#import "ChartboostDelegate.h"
 
 // ----------------------------------------------------------------------------
 
@@ -119,7 +102,7 @@ class chartboostLibrary
 const char chartboostLibrary::kName[] = "plugin.chartboost";
 
 // Plugin version
-const char *chartboostPluginVersion = "2.0.2 (SDK 5.0.3)";
+const char *chartboostPluginVersion = "2.0.3 (SDK 5.0.3)";
 
 // Pointer to the Chartboost Delegate
 ChartboostDelegate *chartBoostDelegate;
@@ -551,6 +534,48 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
 // Chartboost Delegate implementation
 @implementation ChartboostDelegate
 
+- (NSString *)getErrorInfo:(CBLoadError)error
+{
+    NSString *errorStr;
+    
+    switch (error) {
+    case CBLoadErrorInternal:
+        errorStr = @"Unknown internal error";
+        break;
+    case CBLoadErrorInternetUnavailable:
+        errorStr = @"Network is currently unavailable";
+        break;
+    case CBLoadErrorTooManyConnections:
+        errorStr = @"Too many requests are pending for that location";
+        break;
+    case CBLoadErrorWrongOrientation:
+        errorStr = @"Interstitial loaded with wrong orientation";
+        break;
+    case CBLoadErrorFirstSessionInterstitialsDisabled:
+        errorStr = @"Interstitial disabled, first session";
+        break;
+    case CBLoadErrorNetworkFailure:
+        errorStr = @"Network request failed";
+        break;
+    case CBLoadErrorNoAdFound:
+        errorStr = @"No ad received";
+        break;
+    case CBLoadErrorSessionNotStarted:
+        errorStr = @"Session not started";
+        break;
+    case CBLoadErrorUserCancellation:
+        errorStr = @"User manually cancelled the impression";
+        break;
+    case CBLoadErrorNoLocationFound:
+        errorStr = @"No location detected";
+        break;
+    default:
+        errorStr = [NSString stringWithFormat:@"Error code not defined: %d", error];
+    }
+
+    return errorStr;
+}
+
 // Interstitial delegate methods
 
 // Called before requesting an interstitial from the backend
@@ -739,8 +764,8 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
-    
-    lua_pushstring( self.L, [[NSString stringWithFormat:@"Failed to load interstitial (Error: %d)", error] UTF8String]);
+
+    lua_pushstring( self.L, [[self getErrorInfo:error] UTF8String]);
     lua_setfield( self.L, -2, "info" );
     
     // Dispatch the event
@@ -876,7 +901,7 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
 
-    lua_pushstring( self.L, [[NSString stringWithFormat:@"Failed to load moreApps (Error: %d)", error] UTF8String]);
+    lua_pushstring( self.L, [[self getErrorInfo:error] UTF8String]);
 	lua_setfield( self.L, -2, "info" );
 	
 	// Dispatch the event
@@ -993,7 +1018,7 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
     lua_pushstring( self.L, [location UTF8String]);
     lua_setfield( self.L, -2, "location");
 	
-    lua_pushstring( self.L, [[NSString stringWithFormat:@"Failed to load rewarded video (Error: %d)", error] UTF8String]);
+    lua_pushstring( self.L, [[self getErrorInfo:error] UTF8String]);
 	lua_setfield( self.L, -2, "info" );
 	
 	Corona::Lua::DispatchEvent( self.L, self.listenerRef, 1 );
