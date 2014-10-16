@@ -570,10 +570,10 @@ int chartboostLibrary::hasCachedMoreApps( lua_State *L )
         errorStr = @"No location detected";
         break;
     default:
-        errorStr = [NSString stringWithFormat:@"Error code not defined: %d", error];
+        errorStr = @"Code not defined";
     }
 
-    return errorStr;
+    return [NSString stringWithFormat:@"Error %d: %@", error, errorStr];
 }
 
 // Interstitial delegate methods
