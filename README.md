@@ -32,6 +32,10 @@ You can find pre-compiled binaries in the "enterprise-binaries" folder.
 
 [hasCachedRewardedVideo](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/hasCachedRewardedVideo.markdown)
 
+[autoCacheAds](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/autoCacheAds.markdown)
+
+[prefetchVideo](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/prefetchVideo.markdown)
+
 [getPluginVersion](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/getPluginVersion.markdown)
 
 
