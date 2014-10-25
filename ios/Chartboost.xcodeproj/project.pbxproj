@@ -563,7 +563,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/CoronaEnterprise/Corona/ios/lib",
 					"$(SYSTEM_APPS_DIR)/CoronaEnterprise/Corona/ios/lib",
-					"$(PROJECT_DIR)/Chartboost",
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -591,7 +590,6 @@
 					"$(inherited)",
 					"$(SRCROOT)/CoronaEnterprise/Corona/ios/lib",
 					"$(SYSTEM_APPS_DIR)/CoronaEnterprise/Corona/ios/lib",
-					"$(PROJECT_DIR)/Chartboost",
 				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
