@@ -1,5 +1,5 @@
 //
-//  init.java
+//  autoCacheAds.java
 //  Chartboost Plugin
 //
 /*
@@ -80,11 +80,11 @@ import android.R.drawable;
 import com.chartboost.sdk.*;
 
 /**
- * Implements the init() function in Lua.
+ * Implements the show() function in Lua.
  * <p>
- * Used for initializing the Chartboost Plugin.
+ * Used for showing an ad with the Chartboost Plugin.
  */
-public class init implements com.naef.jnlua.NamedJavaFunction 
+public class autoCacheAds implements com.naef.jnlua.NamedJavaFunction 
 {
     /**
      * Gets the name of the Lua function as it would appear in the Lua script.
@@ -93,11 +93,8 @@ public class init implements com.naef.jnlua.NamedJavaFunction
     @Override
     public String getName()
     {
-        return "init";
+        return "autoCacheAds";
     }
-
-    // Our lua callback listener
-    private int listenerRef;
 
     /**
      * This method is called when the Lua function is called.
@@ -112,93 +109,34 @@ public class init implements com.naef.jnlua.NamedJavaFunction
     {
         try
         {
-            // Get the corona application context
-            Context coronaApplication = CoronaEnvironment.getApplicationContext();
-
-            // Parameters
-            String appID = null;
-            String appSignature = null;
-
-            // If an options table has been passed
-            if ( luaState.isTable( -1 ) )
+            Boolean cacheAds = true;
+            
+            if ( luaState.isBoolean( 1 ) )
             {
-                // Get the listener field
-                luaState.getField( -1, "listener" );
-                if ( CoronaLua.isListener( luaState, -1, "chartboost" ) ) 
-                {
-                    // Assign the callback listener to a new lua ref
-                    listenerRef = CoronaLua.newRef( luaState, -1 );
-                }
-                else
-                {
-                    // Assign the listener to a nil ref
-                    listenerRef = CoronaLua.REFNIL;
-                }
-                luaState.pop( 1 );
-
-                // Get the app key
-                luaState.getField( -1, "appID" );
-                if ( luaState.isString( -1 ) )
-                {
-                    appID = luaState.checkString( -1 );
-                }
-                else
-                {
-                    System.out.println( "Error: appID expected, got " + luaState.typeName( -1 ) );
-                }
-                luaState.pop( 1 );
-
-                // Get the app secret
-                luaState.getField( -1, "appSignature" );
-                if ( luaState.isString( -1 ) )
-                {
-                    appSignature = luaState.checkString( -1 );
-                }
-                else
-                {
-                    System.out.println( "Error: appSignature expected, got " + luaState.typeName( -1 ) );
-                }
-                luaState.pop( 1 );
+                cacheAds = luaState.toBoolean( 1 );
             }
-            else
-            {
-                System.out.println( "Error: chartboost.init(), options table expected, got " + luaState.typeName( -1 ) );
-            }
-
-            // Set helper values
-            chartboostHelper.luaState = luaState;
-            chartboostHelper.listenerRef = listenerRef;
-
+                
             // Corona Activity
             CoronaActivity coronaActivity = null;
-            if ( CoronaEnvironment.getCoronaActivity() != null ) {
+            if ( CoronaEnvironment.getCoronaActivity() != null )
+            {
                 coronaActivity = CoronaEnvironment.getCoronaActivity();
             }
 
-            // Set variables to pass to chartboost (need to be final as they are accesed from within an inner class)
-            final String cbAppID = appID;
-            final String cbAppSignature = appSignature;
-            final CoronaActivity activity = coronaActivity;
+            final Boolean fCacheAds = cacheAds;
 
             // Create a new runnable object to invoke our activity
             Runnable runnableActivity = new Runnable()
             {
                 public void run()
                 {
-                    ChartboostDelegate chartboostDelegate = new chartboostDelegate();
-
-                    Chartboost.startWithAppId(activity, cbAppID, cbAppSignature);
-                    Chartboost.setShouldRequestInterstitialsInFirstSession(true);
-                    Chartboost.setShouldDisplayLoadingViewForMoreApps(true);
-                    Chartboost.setImpressionsUseActivities(true); // must be true for OpenGL apps (i.e. all Corona apps)
-                    Chartboost.setDelegate(chartboostDelegate);
-                    Chartboost.onCreate(activity);
-                    Chartboost.onStart(activity);
+                    Chartboost.setAutoCacheAds(fCacheAds);
                 }
             };
 
             // Run the activity on the uiThread
-            if ( coronaActivity != null ) {
+            if ( coronaActivity != null )
+            {
                 coronaActivity.runOnUiThread( runnableActivity );
             }
         }

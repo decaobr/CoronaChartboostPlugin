@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.swipeware.chartboostPlugin"
-          android:versionCode="102"
-          android:versionName="2.0.2"
+          android:versionCode="104"
+          android:versionName="2.0.4"
 	      android:installLocation="auto">
 	<!--
 	 Set the minimum and target Android API levels here to inform the app store what OS versions this app supports.
 	 Set the "minSdkVersion" to at least API level 8 (aka: Android 2.2 "Froyo") which is the minimum Corona supports.
 	 Set the "targetSdkVersion" to the API level that you compile with. Set to a high level to avoid compatibility mode.
 	 -->
-	<uses-sdk android:minSdkVersion="8" android:targetSdkVersion="16"/>
+	<uses-sdk android:minSdkVersion="9" android:targetSdkVersion="19"/>
 	
 	<!-- Permissions required by this app. -->
 	<!-- <uses-permission android:name="android.permission.INTERNET"/> -->

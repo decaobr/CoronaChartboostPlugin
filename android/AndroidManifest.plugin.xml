@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.swipeware.chartboost"
-          android:versionCode="102"
-          android:versionName="2.0.2">
+          android:versionCode="104"
+          android:versionName="2.0.4">
 </manifest>
