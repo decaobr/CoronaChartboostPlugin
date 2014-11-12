@@ -2,7 +2,7 @@
 
 The Chartboost plugin for Corona SDK allows you to show static interstitials, video interstitials and rewarded videos in your Corona based apps.  
 
-Currently uses Chartboost SDK 5.0.3 (Oct. 1, 2014).  
+Currently uses Chartboost SDK 5.0.4 (Nov, 2014).  
 Tested to be fully compatible with iOS 8.
 
 **Enterprise users:**  
@@ -33,6 +33,8 @@ You can find pre-compiled binaries in the "enterprise-binaries" folder.
 [hasCachedRewardedVideo](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/hasCachedRewardedVideo.markdown)
 
 [autoCacheAds](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/autoCacheAds.markdown)
+
+[isAnyAdVisible](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/isAnyAdVisible.markdown)
 
 [prefetchVideo](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/prefetchVideo.markdown)
 
