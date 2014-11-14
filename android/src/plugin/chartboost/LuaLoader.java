@@ -156,10 +156,27 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener
     public void onSuspended( CoronaRuntime runtime )
     {
         CoronaActivity coronaActivity = null;
-
         if ( CoronaEnvironment.getCoronaActivity() != null ) {
             coronaActivity = CoronaEnvironment.getCoronaActivity();
-            Chartboost.onPause(coronaActivity);
+        }
+
+        // Set variables to pass to chartboost (need to be final as they are accesed from within an inner class)
+        final CoronaActivity activity = coronaActivity;
+
+        // Create a new runnable object to invoke our activity
+        Runnable runnableActivity = new Runnable()
+        {
+            public void run()
+            {
+                //onPause() doesn't work on certain Android devices with setImpressionsUseActivities(true).
+                //removed onPause() after recommendation from Chartboost support
+                //Chartboost.onPause(activity);
+            }
+        };
+
+        // Run the activity on the uiThread
+        if ( coronaActivity != null ) {
+            coronaActivity.runOnUiThread( runnableActivity );
         }
     }
  
@@ -173,10 +190,27 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener
     public void onResumed( CoronaRuntime runtime )
     {
         CoronaActivity coronaActivity = null;
-
         if ( CoronaEnvironment.getCoronaActivity() != null ) {
             coronaActivity = CoronaEnvironment.getCoronaActivity();
-            Chartboost.onResume(coronaActivity);
+        }
+
+        // Set variables to pass to chartboost (need to be final as they are accesed from within an inner class)
+        final CoronaActivity activity = coronaActivity;
+
+        // Create a new runnable object to invoke our activity
+        Runnable runnableActivity = new Runnable()
+        {
+            public void run()
+            {
+                //onResume() doesn't work on certain Android devices with setImpressionsUseActivities(true).
+                //removed onResume() after recommendation from Chartboost support
+                //Chartboost.onResume(activity);
+            }
+        };
+
+        // Run the activity on the uiThread
+        if ( coronaActivity != null ) {
+            coronaActivity.runOnUiThread( runnableActivity );
         }
     }
  
@@ -194,10 +228,26 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener
     public void onExiting( CoronaRuntime runtime )
     {
         CoronaActivity coronaActivity = null;
-        
         if ( CoronaEnvironment.getCoronaActivity() != null ) {
             coronaActivity = CoronaEnvironment.getCoronaActivity();
-            Chartboost.onDestroy(coronaActivity);
+        }
+
+        // Set variables to pass to chartboost (need to be final as they are accesed from within an inner class)
+        final CoronaActivity activity = coronaActivity;
+
+        // Create a new runnable object to invoke our activity
+        Runnable runnableActivity = new Runnable()
+        {
+            public void run()
+            {
+                Chartboost.onStop(activity);
+                Chartboost.onDestroy(activity);
+            }
+        };
+
+        // Run the activity on the uiThread
+        if ( coronaActivity != null ) {
+            coronaActivity.runOnUiThread( runnableActivity );
         }
     }
 }
