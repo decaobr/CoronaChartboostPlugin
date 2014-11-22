@@ -5,8 +5,14 @@ Returns whether a Rewarded Video is cached or not.
 ## Syntax
 
 ```
-chartboost.hasCachedRewardedVideo()
+chartboost.hasCachedRewardedVideo( namedLocation )
 ```
+This function takes one or zero arguments.
+
+##### namedLocation - (optional)
+
+*String.* The named location of the Rewarded Video. If omitted, this will return whether or not the default Rewarded Video location is cached or not.
+
 
 ## Example
 ```
