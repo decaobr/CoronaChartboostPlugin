@@ -191,6 +191,7 @@ public class init implements com.naef.jnlua.NamedJavaFunction
                     Chartboost.setShouldRequestInterstitialsInFirstSession(true);
                     Chartboost.setShouldDisplayLoadingViewForMoreApps(true);
                     Chartboost.setImpressionsUseActivities(true); // must be true for OpenGL apps (i.e. all Corona apps)
+                    Chartboost.setFramework(Chartboost.CBFramework.CBFrameworkCorona);
                     Chartboost.setDelegate(chartboostDelegate);
                     Chartboost.onCreate(activity);
                     Chartboost.onStart(activity);
