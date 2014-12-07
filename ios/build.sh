@@ -46,7 +46,7 @@ xcodebuild -project "$path/Plugin.xcodeproj" -target $TARGET -configuration $CON
 checkError
 
 # Xcode Simulator
-xcodebuild -project "$path/Plugin.xcodeproj" -target $TARGET -configuration $CONFIG -sdk iphonesimulator -arch i386
+xcodebuild -project "$path/Plugin.xcodeproj" -target $TARGET -configuration $CONFIG -sdk iphonesimulator -arch i386 -arch x86_64
 checkError
 
 # create universal binary

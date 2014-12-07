@@ -2,7 +2,9 @@
 
 The Chartboost plugin for Corona SDK allows you to show static interstitials, video interstitials and rewarded videos in your Corona based apps.  
 
-Tested to be fully compatible with iOS 8.
+Note for iOS / Xcode developers:  
+• This plugin has 32/64 bit support.  
+• Compatible with iOS 6 through iOS 8.
 
 **Enterprise users:**  
 You can find pre-compiled binaries in the "enterprise-binaries" folder.  
