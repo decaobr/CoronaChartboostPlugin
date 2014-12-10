@@ -1,7 +1,7 @@
 /*
  * CBStory.h
  * Chartboost
- * 5.1.0
+ * 5.1.2
  *
  * Copyright 2011 Chartboost. All rights reserved.
  */
