@@ -105,7 +105,7 @@ class chartboostLibrary
 const char chartboostLibrary::kName[] = "plugin.chartboost";
 
 // Plugin version
-const char *chartboostPluginVersion = "iOS SDK 5.1.2 rev 1";
+const char *chartboostPluginVersion = "iOS SDK 5.1.2 rev 2";
 
 // Pointer to the Chartboost Delegate
 ChartboostDelegate *chartBoostDelegate;
@@ -134,7 +134,8 @@ int chartboostLibrary::Open( lua_State *L )
 			{ "hasCachedInterstitial", hasCachedInterstitial },
 			{ "hasCachedMoreApps", hasCachedMoreApps },
 			{ "hasCachedRewardedVideo", hasCachedRewardedVideo },
-			{ "autoCacheAds", autoCacheAds },
+            { "autoCacheAds", autoCacheAds },
+            { "isAnyAdVisible", isAnyAdVisible },
 			{ "prefetchVideo", prefetchVideo },
 			{ "config", config },
 			{ "getPluginVersion", getPluginVersion },
