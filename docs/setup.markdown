@@ -4,7 +4,7 @@
 |Starter, Basic, Pro, Enterprise|Android, iOS, Amazon|
 
 
-The Chartboost plugin lets you utilize Chartboost's advertisement SDK within a Corona project.## Project Settings
+The Chartboost plugin lets you utilize Chartboost's advertisement SDK within a Corona project.
 
 ### SDK
 
@@ -17,13 +17,11 @@ settings =
 {
 	plugins =
 	{
-		-- key is the name passed to Lua's 'require()'
 		["plugin.chartboost"] =
 		{
-			-- required
-			publisherId = "com.swipeware",
-		},
-	},		
+			publisherId = "com.swipeware"
+		}
+	}	
 }
 ``````
 
