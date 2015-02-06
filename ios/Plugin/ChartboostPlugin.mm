@@ -105,7 +105,7 @@ class chartboostLibrary
 const char chartboostLibrary::kName[] = "plugin.chartboost";
 
 // Plugin version
-const char *chartboostPluginVersion = "iOS SDK 5.1.2 rev 2";
+const char *chartboostPluginVersion = "iOS SDK 5.1.3 rev 1";
 
 // Pointer to the Chartboost Delegate
 ChartboostDelegate *chartBoostDelegate;
