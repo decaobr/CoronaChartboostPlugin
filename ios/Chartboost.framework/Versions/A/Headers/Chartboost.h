@@ -1,7 +1,7 @@
 /*
  * Chartboost.h
  * Chartboost
- * 5.1.3
+ * 5.1.5
  *
  * Copyright 2011 Chartboost. All rights reserved.
  */
@@ -25,7 +25,15 @@ typedef NS_ENUM(NSUInteger, CBFramework) {
     /*! Cordova. */
     CBFrameworkCordova,
     /*! CocoonJS. */
-    CBFrameworkCocoonJS
+    CBFrameworkCocoonJS,
+    /*! Cocos2d-x. */
+    CBFrameworkCocos2dx,
+    /*! MoPub. */
+    CBFrameworkMoPub,
+    /*! Fyber. */
+    CBFrameworkFyber,
+    /*! Prime31Unreal. */
+    CBFrameworkPrime31Unreal
 };
 
 /*!
@@ -72,6 +80,22 @@ typedef NS_ENUM(NSUInteger, CBClickError) {
     CBClickErrorAgeGateFailure,
     /*! Unknown internal error */
     CBClickErrorInternal,
+};
+
+/*!
+ @typedef NS_ENUM (NSUInteger, CBStatusBarBehavior)
+ 
+ @abstract
+ Used with setStatusBarBehavior:(CBStatusBarBehavior)statusBarBehavior calls to set how fullscreen ads should
+ behave with regards to the status bar.
+ */
+typedef NS_ENUM(NSUInteger, CBStatusBarBehavior) {
+    /*! Ignore status bar altogether; fullscreen ads will use the space of the status bar. */
+    CBStatusBarBehaviorIgnore,
+    /*! Respect the status bar partially; fullscreen ads will use the space of the status bar but any user interactive buttons will not. */
+    CBStatusBarBehaviorRespectButtons,
+    /*! Respect the status bar fully; fullscreen ads will not use the status bar space. */
+    CBStatusBarBehaviorRespect
 };
 
 /*!
@@ -470,6 +494,17 @@ extern CBLocation const CBLocationDefault;
  developer to manage the caching behavior of Chartboost impressions.
  */
 + (BOOL)getAutoCacheAds;
+
+/*!
+ @abstract
+ Set to control how the fullscreen ad units should interact with the status bar. (CBStatusBarBehaviorIgnore by default).
+ 
+ @param statusBarBehavior The param to set if fullscreen video should respect the status bar.
+ 
+ @discussion See the enum value comments for descriptions on the values and their behavior.  Only use this feature if your
+ application has the status bar enabled.
+ */
++ (void)setStatusBarBehavior:(CBStatusBarBehavior)statusBarBehavior;
 
 @end
 
