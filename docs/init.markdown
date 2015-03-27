@@ -2,6 +2,8 @@
 
 Initializes the Chartboost library. This function is required and must be executed before making other Chartboost calls such as `chartboost.show()`.
 
+IMPORTNANT! Please note that you must also implement [chartboost.startSession](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/startSession.markdown).
+
 ## Syntax
 
 ```
