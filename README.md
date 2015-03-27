@@ -21,7 +21,7 @@ You can find pre-compiled binaries in the "enterprise-binaries" folder.
 
 [show](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/show.markdown)
 
-[startSession](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/startSession.markdown)
+[startSession](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/startSession.markdown) <= YOU MUST IMPLEMENT THIS!
 
 [hasCachedInterstitial](https://github.com/swipeware/CoronaChartboostPlugin/tree/modernized/docs/hasCachedInterstitial.markdown)
 
