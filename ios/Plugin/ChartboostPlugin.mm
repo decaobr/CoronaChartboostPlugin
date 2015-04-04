@@ -91,6 +91,7 @@ class chartboostLibrary
 		static int hasCachedMoreApps( lua_State *L );
 		static int hasCachedRewardedVideo( lua_State *L );
         static int autoCacheAds( lua_State *L );
+        static int closeImpression( lua_State *L );
         static int isAnyAdVisible( lua_State *L );
 		static int prefetchVideo( lua_State *L );
 		static int getPluginVersion( lua_State *L );
@@ -105,7 +106,7 @@ class chartboostLibrary
 const char chartboostLibrary::kName[] = "plugin.chartboost";
 
 // Plugin version
-const char *chartboostPluginVersion = "iOS SDK 5.1.5 rev 1";
+const char *chartboostPluginVersion = "iOS SDK 5.1.5 rev 2";
 
 // Pointer to the Chartboost Delegate
 ChartboostDelegate *chartBoostDelegate;
@@ -135,6 +136,7 @@ int chartboostLibrary::Open( lua_State *L )
 			{ "hasCachedMoreApps", hasCachedMoreApps },
 			{ "hasCachedRewardedVideo", hasCachedRewardedVideo },
             { "autoCacheAds", autoCacheAds },
+            { "closeImpression", closeImpression },
             { "isAnyAdVisible", isAnyAdVisible },
 			{ "prefetchVideo", prefetchVideo },
 			{ "config", config },
@@ -547,6 +549,19 @@ int chartboostLibrary::autoCacheAds( lua_State *L )
     }
     
     [Chartboost setAutoCacheAds: cacheAds];
+    
+    return 0;
+}
+    
+int chartboostLibrary::closeImpression( lua_State *L )
+{
+    // if Chartboost has not been initialized
+    if ( chartBoostDelegate == nil ) {
+        luaL_error( L, "Error: You must call first call chartboost.init() before calling chartboost.autoCacheAds()\n" );
+        return 0;
+    }
+    
+    // NOP (Only available on Android)
     
     return 0;
 }
