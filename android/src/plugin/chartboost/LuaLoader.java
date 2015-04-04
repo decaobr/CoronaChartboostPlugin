@@ -107,6 +107,7 @@ public class LuaLoader implements JavaFunction, CoronaRuntimeListener
             new hasCachedMoreApps(),
             new hasCachedRewardedVideo(),
             new isAnyAdVisible(),
+            new closeImpression(),
             new autoCacheAds(),
             new prefetchVideo()
         };
