@@ -106,7 +106,7 @@ class chartboostLibrary
 const char chartboostLibrary::kName[] = "plugin.chartboost";
 
 // Plugin version
-const char *chartboostPluginVersion = "iOS SDK 5.1.5 rev 2";
+const char *chartboostPluginVersion = "iOS SDK 5.2.1 rev 1";
 
 // Pointer to the Chartboost Delegate
 ChartboostDelegate *chartBoostDelegate;
@@ -455,7 +455,7 @@ int chartboostLibrary::show( lua_State *L )
 {
 	// if Chartboost has not been initialized
 	if ( chartBoostDelegate == nil ) {
-		luaL_error( L, "Error: You must call first call chartboost.init() before calling chartboost.show()\n" );
+		luaL_error( L, "Error: You must first call chartboost.init() before calling chartboost.show()\n" );
 		return 0;
 	}
 
@@ -537,7 +537,7 @@ int chartboostLibrary::autoCacheAds( lua_State *L )
 {
     // if Chartboost has not been initialized
     if ( chartBoostDelegate == nil ) {
-        luaL_error( L, "Error: You must call first call chartboost.init() before calling chartboost.autoCacheAds()\n" );
+        luaL_error( L, "Error: You must first call chartboost.init() before calling chartboost.autoCacheAds()\n" );
         return 0;
     }
     
@@ -557,11 +557,11 @@ int chartboostLibrary::closeImpression( lua_State *L )
 {
     // if Chartboost has not been initialized
     if ( chartBoostDelegate == nil ) {
-        luaL_error( L, "Error: You must call first call chartboost.init() before calling chartboost.autoCacheAds()\n" );
+        luaL_error( L, "Error: You must first call chartboost.init() before calling chartboost.closeImpresseion()\n" );
         return 0;
     }
     
-    // NOP (Only available on Android)
+    [Chartboost closeImpression];
     
     return 0;
 }
@@ -570,7 +570,7 @@ int chartboostLibrary::isAnyAdVisible( lua_State *L )
 {
     // if Chartboost has not been initialized
     if ( chartBoostDelegate == nil ) {
-        luaL_error( L, "Error: You must call first call chartboost.init() before calling chartboost.isAnyAdVisible()\n" );
+        luaL_error( L, "Error: You must first call chartboost.init() before calling chartboost.isAnyAdVisible()\n" );
         return 0;
     }
     
@@ -583,7 +583,7 @@ int chartboostLibrary::prefetchVideo( lua_State *L )
 {
 	// if Chartboost has not been initialized
 	if ( chartBoostDelegate == nil ) {
-		luaL_error( L, "Error: You must call first call chartboost.init() before calling chartboost.prefetchVideo()\n" );
+		luaL_error( L, "Error: You must first call chartboost.init() before calling chartboost.prefetchVideo()\n" );
 		return 0;
 	}
     
