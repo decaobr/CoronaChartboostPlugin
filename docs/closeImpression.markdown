@@ -1,7 +1,6 @@
 ## Overview
 
 Force close an active impression.  
-(Only available on Android. On iOS it does nothing.)
 
 ## Syntax
 
