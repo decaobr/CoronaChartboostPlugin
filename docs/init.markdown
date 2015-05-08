@@ -128,6 +128,7 @@ event.name: "chartboost"
 7    Session not started
 8    User manually cancelled the impression
 9    No location detected
+10   Video prefetching did not complete
 
 ```
   
