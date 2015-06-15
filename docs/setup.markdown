@@ -10,7 +10,9 @@ The Chartboost plugin lets you utilize Chartboost's advertisement SDK within a C
 
 When you build using the Corona Simulator, the server automatically takes care of integrating the plugin into your project. 
 
-All you need to do is add an entry into a `plugins` table of your `build.settings`. The following is an example of a minimal `build.settings` file:
+All you need to do is add a few entries into the `plugins` table of your `build.settings`. Please note that the Chartboost SDK requires Google Play Services on Android to function properly.  
+  
+The following is an example of a minimal `build.settings` file:
 
 ``````
 settings =
@@ -20,7 +22,13 @@ settings =
 		["plugin.chartboost"] =
 		{
 			publisherId = "com.swipeware"
-		}
+		},
+		
+		["plugin.google.play.services"] =
+        {
+            publisherId = "com.coronalabs",
+            supportedPlatforms = { android = true }
+        }
 	}	
 }
 ``````
@@ -31,9 +39,9 @@ settings =
 The following permissions will be added automatically:  
 android.permission.INTERNET  
 android.permission.ACCESS_NETWORK_STATE  
-  
-Optional (recommended) permissions you can add:  
 android.permission.WRITE_EXTERNAL_STORAGE  
+  
+Optional (recommended) permissions you can add:    
 android.permission.ACCESS_WIFI_STATE
 
 ## Syntax
