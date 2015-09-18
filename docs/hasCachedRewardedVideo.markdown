@@ -20,5 +20,5 @@ This function takes one or zero arguments.
 local chartboost = require( "plugin.chartboost" )
 
 -- Is the Rewarded Video cached?
-print( "Has cached rewarded video: " .. chartboost.hasCachedRewardedVideo() );
+print( "Has cached rewarded video: " .. tostring(chartboost.hasCachedRewardedVideo() ));
 ```
